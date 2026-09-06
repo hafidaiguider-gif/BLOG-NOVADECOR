@@ -8,6 +8,8 @@
 ## Contenu (Markdown, prêt pour Gutenberg)
 
 ```markdown
+# 10 Essential Warm Minimalist Decor Elements You Need
+
 Shopping for a pared-down home usually starts with a vague instinct and no real list: buy less, buy neutral, avoid clutter. That instinct gets you halfway to a calmer room and stops there, because a stack of neutral-toned purchases with no unifying logic tends to land somewhere between accidentally bare and quietly mismatched.
 
 Warm minimalism works differently. It is built from a short, specific set of materials and objects that do most of the emotional work in a room, rather than a long list of decorative extras. Learn what those load-bearing pieces actually are, and the rest of the shopping becomes far easier to edit down, because everything that is not one of them becomes optional.
@@ -94,7 +96,7 @@ Juliana Miller writes about warm minimalism the way an editor writes about craft
 | **SEO Title** | 10 Essential Warm Minimalist Decor Elements You Need |
 | **Slug** | `warm-minimalist-decor-elements` |
 | **Focus Keyword** | warm minimalist decor elements |
-| **Meta Description** | These are the ten warm minimalist decor elements that actually carry warmth in a room, from raw wood and stone to layered lighting and hand-thrown ceramics. |
+| **Meta Description** | These are the ten warm minimalist decor elements that carry real warmth, from raw wood and stone to layered lighting and hand-thrown ceramics. |
 | **Excerpt** | Warm minimalism is built from a short list of load-bearing materials and objects, not endless decorative extras. Here are the ten essential elements, from raw wood and natural stone to layered lighting and one handcrafted anchor piece, worth prioritizing first. |
 | **Catégorie** | WarmMinimalism |
 | **Tags** | NovaDecor WarmMinimalism, warm minimalist decor elements, warm minimalism, minimalist decor ideas, warm minimalist home, textured interiors, cozy minimalism, neutral color palette, interior design essentials, hand-thrown ceramics |
