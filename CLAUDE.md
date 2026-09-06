@@ -107,3 +107,18 @@ claude-seo/
 2. **WordPress Native**: REST API integration with Application Password auth
 3. **AI-Ready**: GEO optimization for ChatGPT, Perplexity, Google AI Overviews
 4. **Pillar Strategy**: Topic clusters with hub-and-spoke architecture
+
+## novadecorusa.com Publishing Setup
+
+- **REST endpoint**: `https://novadecorusa.com/wp-json/wp/v2/posts`
+- **Default post status**: always `draft` — never publish directly, a human reviews and publishes manually.
+- **Script**: `publish_draft.js` (repo root) creates a draft via `node publish_draft.js "Title" "Content or path/to/file.md"`.
+- **Credentials**: never stored in this repo or in this file. `publish_draft.js` reads them from
+  either `WP_URL` / `WP_USERNAME` / `WP_APP_PASSWORD` environment variables, or
+  `~/.config/claude-seo/wordpress.json` (see `.env.example` for the shape). Rotate the Application
+  Password in wp-admin any time it may have been exposed (chat logs, screenshots, etc.).
+- **Known issue**: cloud/remote Claude Code sessions route outbound HTTPS through a policy proxy that
+  has been observed substituting a stale cached Application Password for this host instead of the
+  one actually supplied, causing every REST call from such a session to fail or misreport auth
+  status. Run `publish_draft.js` from a local machine (not a cloud/remote session) until that's
+  resolved, and verify draft creation directly in wp-admin afterward.
