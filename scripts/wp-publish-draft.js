@@ -200,12 +200,59 @@ function escapeHtml(str) {
     .replace(/>/g, '&gt;');
 }
 
-// Wraps the whole body in a Gutenberg Custom HTML block so WordPress renders
-// it verbatim. Without this, the classic `wpautop` content filter can inject
-// stray <br /> tags into <script type="application/ld+json"> blocks and other
-// hand-written HTML (see PROMPT_MAITRE.md V1.5).
-function wrapAsCustomHtmlBlock(html) {
-  return `<!-- wp:html -->\n${html}\n<!-- /wp:html -->`;
+// Converts our semantic HTML (h2/h3/p/ul/blockquote/hr, plus any trailing
+// JSON-LD <script> tags) into real Gutenberg blocks, so the article is
+// editable as normal paragraphs/headings/quotes in the visual editor
+// instead of one opaque Custom HTML blob (see PROMPT_MAITRE.md V1.6).
+// Only the JSON-LD <script> tags are wrapped in a single Custom HTML block,
+// placed at the very end, isolated from the rest of the content.
+function toGutenbergBlocks(html) {
+  const scripts = [];
+  const withoutScripts = html.replace(
+    /<script[^>]*application\/ld\+json[^>]*>[\s\S]*?<\/script>/g,
+    (m) => {
+      scripts.push(m);
+      return '';
+    }
+  );
+
+  const blocks = [];
+  const blockRe =
+    /<h2([^>]*)>([\s\S]*?)<\/h2>|<h3([^>]*)>([\s\S]*?)<\/h3>|<blockquote><p>([\s\S]*?)<\/p><\/blockquote>|<ul>([\s\S]*?)<\/ul>|<p>([\s\S]*?)<\/p>|<hr\s*\/?>/g;
+  let match;
+  while ((match = blockRe.exec(withoutScripts)) !== null) {
+    if (match[2] !== undefined) {
+      const idMatch = (match[1] || '').match(/id="([^"]*)"/);
+      const anchor = idMatch ? idMatch[1] : null;
+      const attrs = anchor ? ` {"anchor":"${anchor}"}` : '';
+      const idAttr = anchor ? ` id="${anchor}"` : '';
+      blocks.push(
+        `<!-- wp:heading${attrs} -->\n<h2 class="wp-block-heading"${idAttr}>${match[2]}</h2>\n<!-- /wp:heading -->`
+      );
+    } else if (match[4] !== undefined) {
+      blocks.push(
+        `<!-- wp:heading {"level":3} -->\n<h3 class="wp-block-heading">${match[4]}</h3>\n<!-- /wp:heading -->`
+      );
+    } else if (match[5] !== undefined) {
+      blocks.push(
+        `<!-- wp:quote -->\n<blockquote class="wp-block-quote"><p>${match[5]}</p></blockquote>\n<!-- /wp:quote -->`
+      );
+    } else if (match[6] !== undefined) {
+      blocks.push(`<!-- wp:list -->\n<ul class="wp-block-list">${match[6]}</ul>\n<!-- /wp:list -->`);
+    } else if (match[7] !== undefined) {
+      blocks.push(`<!-- wp:paragraph -->\n<p>${match[7]}</p>\n<!-- /wp:paragraph -->`);
+    } else {
+      blocks.push(
+        '<!-- wp:separator -->\n<hr class="wp-block-separator has-alpha-channel-opacity"/>\n<!-- /wp:separator -->'
+      );
+    }
+  }
+
+  if (scripts.length) {
+    blocks.push(`<!-- wp:html -->\n${scripts.join('\n')}\n<!-- /wp:html -->`);
+  }
+
+  return blocks.join('\n\n');
 }
 
 async function main() {
@@ -246,7 +293,7 @@ async function main() {
   const tagIds = await resolveTermIds(siteUrl, authHdr, 'tags', article.tags);
 
   const metaDescription = article.metaDescription || article.excerpt || '';
-  const fullContent = wrapAsCustomHtmlBlock(article.content + buildFaqBlock(article.faq));
+  const fullContent = toGutenbergBlocks(article.content + buildFaqBlock(article.faq));
 
   const payload = {
     title: article.title,
