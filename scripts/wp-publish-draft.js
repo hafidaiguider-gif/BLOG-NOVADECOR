@@ -243,6 +243,7 @@ async function main() {
       // meta keys with show_in_rest. Silently ignored otherwise.
       _yoast_wpseo_metadesc: metaDescription,
       _yoast_wpseo_focuskw: article.focusKeyword || '',
+      rank_math_title: article.metaTitle || '',
       rank_math_description: metaDescription,
       rank_math_focus_keyword: article.focusKeyword || '',
     },
