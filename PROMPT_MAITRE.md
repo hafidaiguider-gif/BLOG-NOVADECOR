@@ -1,10 +1,12 @@
-# PROMPT MAÎTRE NOVADECORUSA — V1.4
+# PROMPT MAÎTRE NOVADECORUSA — V1.5
 
 Document de référence consolidé pour la rédaction et la publication d'articles.
 
 **Mise à jour V1.3** : ajout de la section 0 « Prérequis techniques WordPress » (obligatoire à compléter avant toute intégration par Claude Code), clarification du statut des liens internes (section 11), clarification de la correspondance auteur WordPress (section 13bis), clarification du traitement des images (section 10 — placeholders, pas d'upload réel). Les changements par rapport à la V1.2 sont signalés par [V1.3].
 
 **Mise à jour V1.4** : correction d'un blocage possible — le minimum de 3 liens internes vivants pour un Satellite (sections 11 et 16.3) est désormais assoupli en placeholder tant que le cluster ne compte pas assez d'articles déjà publiés, ce qui évite une boucle de régénération infinie sur les tout premiers articles du site (situation actuelle : 0 article publié). Simplification de la mention du plugin SEO en section 17 (RankMath confirmé, plus d'alternative Yoast citée). Les changements par rapport à la V1.3 sont signalés par [V1.4].
+
+**Mise à jour V1.5** : correction de 3 défauts d'intégration constatés sur le premier Pillar publié en brouillon (Post ID 1199). (1) Les notes d'image ne sont plus des commentaires HTML invisibles : elles deviennent un bloc visuel `<blockquote>` clairement visible dans l'éditeur WordPress (section 10.2). (2) La table des matières d'un Pillar doit porter un vrai sous-titre H2 « Table of Contents » et présenter ses ancres dans une liste `<ul><li>` sobre (section 8.3). (3) Les blocs « SEO and Publishing Metadata » et « Editorial Notes » sont désormais explicitement réservés à la présentation dans le chat et ne doivent jamais être injectés dans le corps HTML envoyé à WordPress (sections 14, 15 et 17) ; le bloc Schema JSON-LD, lui, reste intégré en fin de contenu WordPress, sous une forme protégée qui empêche WordPress d'y injecter des `<br />` parasites. Les changements par rapport à la V1.4 sont signalés par [V1.5]. Ces trois règles sont absolues et s'appliquent automatiquement à tous les articles du calendrier éditorial, sans qu'il soit nécessaire de les redemander.
 
 ## 0. [V1.3] Prérequis techniques WordPress — à compléter avant intégration Claude Code
 
@@ -232,7 +234,7 @@ Dans ce format uniquement, les bullets et les fiches produit courtes sont autori
 
 ### 8.3 Table des matières — Pillar uniquement
 
-Pour tout article Pillar, insérer immédiatement après le H1 (avant le hook narratif) un bloc de table des matières avec ancres de saut HTML (`<a href="#slug-section">`) vers chaque H2. Format sobre, sans puces décoratives ni numérotation visuelle lourde — cohérent avec le ton éditorial du site. Les Satellites n'ont pas de table des matières.
+Pour tout article Pillar, insérer immédiatement après le H1 (avant le hook narratif) une table des matières. [V1.5] Format définitif : un vrai sous-titre `<h2>Table of Contents</h2>`, suivi d'une liste `<ul><li>` sobre et élégante, chaque `<li>` contenant une ancre de saut HTML (`<a href="#slug-section">`) vers le H2 correspondant. Ne jamais livrer une simple suite de liens sans titre ni structure de liste. Les Satellites n'ont pas de table des matières.
 
 ## 9. Règles SEO et SGO
 
@@ -260,7 +262,9 @@ Le code JSON-LD est livré dans un bloc de code séparé à la fin de l'article,
 
 Format Editorial : 4 images pour un Satellite (jamais regroupées, chacune à un emplacement précis avec une note dédiée) ; 6 à 8 images pour un Pillar, réparties une par section narrative supplémentaire. Format Curated Shopping Edit : 1 image de mise en scène + 1 photo produit par article présenté.
 
-[V1.3] **Précision importante** Les « images » livrées par l'IA sont des notes de position et de contenu (voir format 10.2), insérées en commentaires HTML `<!-- image N : ... -->` dans le corps intégré à WordPress. L'IA ne télécharge, ne génère ni n'uploade aucun fichier image réel dans la médiathèque WordPress. Le choix, la recherche et l'upload de la photo elle-même restent une action manuelle de Juliana, à partir des indications de source et de sujet fournies dans la note.
+[V1.3] **Précision importante** Les « images » livrées par l'IA sont des notes de position et de contenu (voir format 10.2). L'IA ne télécharge, ne génère ni n'uploade aucun fichier image réel dans la médiathèque WordPress. Le choix, la recherche et l'upload de la photo elle-même restent une action manuelle de Juliana, à partir des indications de source et de sujet fournies dans la note.
+
+[V1.5] **Correction définitive** Les notes d'image ne sont plus livrées en commentaires HTML `<!-- image N : ... -->` (invisibles dans l'éditeur WordPress). Elles doivent être un bloc visuel clairement identifiable dans le corps du texte, sous forme de `<blockquote>` contenant le texte `[IMAGE N PLACEHOLDER — position: ..., subject: ..., source: ..., suggested caption: ...]`. Juliana doit pouvoir repérer à l'œil, directement dans l'éditeur WordPress, l'emplacement exact où poser chaque image.
 
 ### 10.1 Position obligatoire (format Editorial, gabarit Satellite)
 
@@ -271,11 +275,13 @@ Format Editorial : 4 images pour un Satellite (jamais regroupées, chacune à un
 
 Pour un Pillar, une image est ajoutée dans chacune des sections narratives supplémentaires (5 à 8), suivant la même logique de position (après le premier paragraphe de la section).
 
-### 10.2 Format de la note image
+### 10.2 [V1.5] Format de la note image — bloc visuel obligatoire
 
-`[image N — position: description précise. Subject: description du sujet. Source: plateforme(s) suggérée(s). Suggested caption: légende prête à l'emploi.]`
+Chaque note d'image est un bloc `<blockquote>` distinct, inséré directement dans le corps HTML à l'emplacement voulu (jamais un commentaire HTML `<!-- ... -->`, invisible dans l'éditeur) :
 
-Exemple : `[image 2 — position: inside section 2, after the first paragraph. Subject: a raw travertine side table beside a linen-upholstered chair in warm natural light. Source: Unsplash or product photo from the recommended affiliate listing. Suggested caption: One material can carry the warmth an entire room is missing.]`
+`<blockquote><p>[IMAGE N PLACEHOLDER — position: description précise. Subject: description du sujet. Source: plateforme(s) suggérée(s). Suggested caption: légende prête à l'emploi.]</p></blockquote>`
+
+Exemple : `<blockquote><p>[IMAGE 2 PLACEHOLDER — position: inside section 2, after the first paragraph. Subject: a raw travertine side table beside a linen-upholstered chair in warm natural light. Source: Unsplash or product photo from the recommended affiliate listing. Suggested caption: One material can carry the warmth an entire room is missing.]</p></blockquote>`
 
 ### 10.3 Sources autorisées
 
@@ -361,7 +367,9 @@ Le nom « Juliana Miller » utilisé dans la bio et dans le champ author du sche
 
 ## 14. Livrables de fin d'article
 
-Bloc « SEO and Publishing Metadata », après le séparateur qui suit la bio. Champs obligatoires, un par ligne, libellé en gras :
+[V1.5] **Destination : chat uniquement.** Le bloc « SEO and Publishing Metadata » est un livrable de présentation dans le chat (comme à l'étape 1 et dans la synthèse de contrôle de l'étape 2). Il ne doit jamais être injecté comme section H2 dans le corps HTML envoyé à WordPress : Slug, Excerpt, Tags, Focused Keyword et Meta Title/Description sont renseignés dans leurs champs WordPress/RankMath dédiés (voir section 17), pas comme texte visible pour les lecteurs du blog.
+
+Champs obligatoires, un par ligne, libellé en gras, présentés dans le chat :
 
 - Slug
 - Excerpt
@@ -376,7 +384,9 @@ Suivi immédiatement du bloc « Schema Markup (JSON-LD) » défini en section 9.
 
 ## 15. Notes éditoriales finales
 
-Section H2 « Editorial Notes », après le bloc SEO et le bloc schema. Contient :
+[V1.5] **Destination : chat uniquement.** Comme le bloc SEO (section 14), le bloc « Editorial Notes » est un livrable de chat, jamais une section H2 du corps HTML publié sur WordPress. Il ne pollue pas le contenu destiné aux lecteurs.
+
+Présenté dans le chat après le plan validé et la synthèse de contrôle. Contient :
 
 - Format utilisé : Editorial (Pillar ou Satellite) ou Curated Shopping Edit
 - Schema recommandé : Article + FAQPage (Editorial) ou Article + Product (ShopTheLook) — renvoyer au bloc JSON-LD généré
@@ -416,7 +426,9 @@ Claude Code, connecté à WordPress via terminal, intègre chaque article direct
 **Contenu de l'article intégré (post WordPress, statut Draft)** :
 
 - Titre : le H1 de l'article
-- Contenu : corps complet en HTML propre (balises `<h2>`, `<h3>`, `<p>`, `<ul>`/`<li>`, `<a>` pour les liens internes/affiliés avec rel approprié), incluant la table des matières si Pillar, les notes image en commentaires HTML `<!-- image N : ... -->` aux emplacements définis en section 10.2, et le bloc JSON-LD en `<script type="application/ld+json">` inséré en fin de contenu
+- Contenu : corps complet en HTML propre (balises `<h2>`, `<h3>`, `<p>`, `<ul>`/`<li>`, `<a>` pour les liens internes/affiliés avec rel approprié), incluant la table des matières si Pillar (H2 « Table of Contents » + `<ul><li>`, section 8.3), les notes image en blocs `<blockquote>` visibles aux emplacements définis en section 10.2, et le bloc JSON-LD en `<script type="application/ld+json">` inséré en fin de contenu
+- [V1.5] **Ce que le corps HTML WordPress ne contient jamais** : les sections « SEO and Publishing Metadata » (section 14) et « Editorial Notes » (section 15) restent des livrables de chat uniquement et ne sont jamais injectées comme H2 dans le contenu publié
+- [V1.5] **Protection du bloc Schema JSON-LD** : le JSON à l'intérieur de chaque `<script type="application/ld+json">` est généré sur une seule ligne (JSON compact, sans retour à la ligne interne), et l'ensemble du corps HTML est encapsulé dans un bloc Gutenberg Custom HTML (`<!-- wp:html -->` ... `<!-- /wp:html -->`) avant l'envoi à WordPress, pour empêcher `wpautop` d'injecter des `<br />` parasites dans le code du script ou ailleurs dans la mise en page
 - Extrait (excerpt) : renseigné dans le champ WordPress dédié
 - Catégorie : assignée automatiquement selon le cluster (une des 8 catégories du site, section 3)
 - Tags : renseignés dans le champ WordPress dédié

@@ -8,7 +8,10 @@
  * full claude-seo skill/agent toolkit could not be cloned into this repo.
  *
  * Usage:
- *   node scripts/wp-publish-draft.js <article.json> [--status draft|pending|publish]
+ *   node scripts/wp-publish-draft.js <article.json> [--status draft|pending|publish] [--post-id <id>]
+ *
+ * Pass --post-id to update an existing post in place (e.g. to fix content
+ * after review) instead of creating a new one.
  *
  * Article JSON schema (see content/drafts/*.json for an example):
  *   {
@@ -197,16 +200,31 @@ function escapeHtml(str) {
     .replace(/>/g, '&gt;');
 }
 
+// Wraps the whole body in a Gutenberg Custom HTML block so WordPress renders
+// it verbatim. Without this, the classic `wpautop` content filter can inject
+// stray <br /> tags into <script type="application/ld+json"> blocks and other
+// hand-written HTML (see PROMPT_MAITRE.md V1.5).
+function wrapAsCustomHtmlBlock(html) {
+  return `<!-- wp:html -->\n${html}\n<!-- /wp:html -->`;
+}
+
 async function main() {
   const args = process.argv.slice(2);
   if (args.length === 0 || args[0].startsWith('--')) {
-    fail('Usage: node scripts/wp-publish-draft.js <article.json> [--status draft|pending|publish]');
+    fail(
+      'Usage: node scripts/wp-publish-draft.js <article.json> [--status draft|pending|publish] [--post-id <id>]'
+    );
   }
   const articlePath = path.resolve(args[0]);
   const statusFlagIndex = args.indexOf('--status');
   const status = statusFlagIndex !== -1 ? args[statusFlagIndex + 1] : 'draft';
   if (!['draft', 'pending', 'publish'].includes(status)) {
     fail(`Invalid --status "${status}". Use draft, pending, or publish.`);
+  }
+  const postIdFlagIndex = args.indexOf('--post-id');
+  const updatePostId = postIdFlagIndex !== -1 ? args[postIdFlagIndex + 1] : null;
+  if (postIdFlagIndex !== -1 && !/^\d+$/.test(updatePostId || '')) {
+    fail('--post-id must be a numeric WordPress post ID.');
   }
 
   if (!fs.existsSync(articlePath)) {
@@ -228,7 +246,7 @@ async function main() {
   const tagIds = await resolveTermIds(siteUrl, authHdr, 'tags', article.tags);
 
   const metaDescription = article.metaDescription || article.excerpt || '';
-  const fullContent = article.content + buildFaqBlock(article.faq);
+  const fullContent = wrapAsCustomHtmlBlock(article.content + buildFaqBlock(article.faq));
 
   const payload = {
     title: article.title,
@@ -249,15 +267,16 @@ async function main() {
     },
   };
 
-  const created = await wpFetch(siteUrl, authHdr, 'posts', {
+  const endpoint = updatePostId ? `posts/${updatePostId}` : 'posts';
+  const result = await wpFetch(siteUrl, authHdr, endpoint, {
     method: 'POST',
     body: JSON.stringify(payload),
   });
 
-  console.log('\nDraft created successfully.');
-  console.log(`Post ID: ${created.id}`);
-  console.log(`Edit link: ${siteUrl}/wp-admin/post.php?post=${created.id}&action=edit`);
-  if (created.link) console.log(`Preview link: ${created.link}`);
+  console.log(updatePostId ? '\nDraft updated successfully.' : '\nDraft created successfully.');
+  console.log(`Post ID: ${result.id}`);
+  console.log(`Edit link: ${siteUrl}/wp-admin/post.php?post=${result.id}&action=edit`);
+  if (result.link) console.log(`Preview link: ${result.link}`);
 }
 
 main().catch((err) => fail(err.message));
