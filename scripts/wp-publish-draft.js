@@ -114,8 +114,8 @@ function authHeader(username, appPassword) {
   return `Basic ${token}`;
 }
 
-async function wpFetch(siteUrl, authHdr, endpoint, options = {}) {
-  const res = await fetch(`${siteUrl}/wp-json/wp/v2/${endpoint}`, {
+async function restFetch(url, authHdr, options = {}) {
+  const res = await fetch(url, {
     ...options,
     headers: {
       Authorization: authHdr,
@@ -132,9 +132,64 @@ async function wpFetch(siteUrl, authHdr, endpoint, options = {}) {
   }
   if (!res.ok) {
     const detail = json.message || JSON.stringify(json);
-    throw new Error(`WordPress API ${res.status} on ${endpoint}: ${detail}`);
+    throw new Error(`WordPress API ${res.status} on ${url}: ${detail}`);
   }
   return json;
+}
+
+async function wpFetch(siteUrl, authHdr, endpoint, options = {}) {
+  return restFetch(`${siteUrl}/wp-json/wp/v2/${endpoint}`, authHdr, options);
+}
+
+// RankMath does not register rank_math_title/description/focus_keyword with
+// show_in_rest, so setting them via the standard /wp/v2/posts `meta` object
+// is silently ignored (confirmed by testing against novadecorusa.com).
+// RankMath's own REST controller (used by its block-editor sidebar) accepts
+// them directly, so that is the only reliable way to fill these fields via
+// the API. Failures here are non-fatal: the article itself is already saved.
+async function updateRankMathMeta(siteUrl, authHdr, postId, { title, description, focusKeyword }) {
+  const meta = {};
+  if (title) meta.rank_math_title = title;
+  if (description) meta.rank_math_description = description;
+  if (focusKeyword) meta.rank_math_focus_keyword = focusKeyword;
+  if (Object.keys(meta).length === 0) return { attempted: false };
+
+  try {
+    await restFetch(`${siteUrl}/wp-json/rankmath/v1/updateMeta`, authHdr, {
+      method: 'POST',
+      body: JSON.stringify({ objectType: 'post', objectID: Number(postId), meta }),
+    });
+    return { attempted: true, ok: true };
+  } catch (err) {
+    console.warn(`Warning: RankMath SEO meta update failed: ${err.message}`);
+    return { attempted: true, ok: false, error: err.message };
+  }
+}
+
+// Words/phrases that read as AI-generated filler rather than Juliana's
+// editorial voice (PROMPT_MAITRE.md section 4 and V1.7). Advisory only:
+// printed as warnings so they can be fixed before the draft is reviewed,
+// never silently rewritten.
+const FORBIDDEN_PHRASES = [
+  'delve', 'tapestry', 'testament to', 'boast', 'boasts', 'elevate your',
+  'unlock the', 'unleash', 'realm of', 'landscape of', 'navigate the',
+  'embark', 'seamless', 'seamlessly', 'robust', 'leverage', 'foster a',
+  'plethora', 'myriad of', 'bustling', 'in today\'s world', 'in the world of',
+  'fast-paced world', 'dive into', 'deep dive', 'game-changer', 'game changer',
+  'it is important to note', 'needless to say',
+  'in conclusion', 'let\'s explore', 'let\'s dive in', 'in this article',
+];
+
+function checkForbiddenPhrases(html) {
+  const text = html
+    .replace(/<script[\s\S]*?<\/script>/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .toLowerCase();
+  const found = FORBIDDEN_PHRASES.filter((phrase) => text.includes(phrase.toLowerCase()));
+  if (found.length) {
+    console.warn(`Warning: forbidden AI-tell phrase(s) found in content: ${found.join(', ')}`);
+  }
+  return found;
 }
 
 async function resolveTermIds(siteUrl, authHdr, taxonomy, names) {
@@ -295,6 +350,13 @@ async function main() {
   const metaDescription = article.metaDescription || article.excerpt || '';
   const fullContent = toGutenbergBlocks(article.content + buildFaqBlock(article.faq));
 
+  checkForbiddenPhrases(fullContent);
+
+  // NOTE: featured_media and Kadence layout meta (_kad_post_layout,
+  // _kad_post_content_style, etc.) are intentionally never included in this
+  // payload, so an update never touches whatever Juliana has already set in
+  // the editor (Featured Image, Narrow/Unboxed layout). The REST API only
+  // changes fields present in the request body.
   const payload = {
     title: article.title,
     content: fullContent,
@@ -304,13 +366,12 @@ async function main() {
     ...(categoryIds.length ? { categories: categoryIds } : {}),
     ...(tagIds.length ? { tags: tagIds } : {}),
     meta: {
-      // Best-effort: only applied if the active SEO plugin registers these
-      // meta keys with show_in_rest. Silently ignored otherwise.
+      // Best-effort Yoast fallback: only applied if that plugin is active
+      // and registers these meta keys with show_in_rest. Harmless no-op
+      // otherwise. RankMath is handled separately below via its own
+      // dedicated REST endpoint (see updateRankMathMeta).
       _yoast_wpseo_metadesc: metaDescription,
       _yoast_wpseo_focuskw: article.focusKeyword || '',
-      rank_math_title: article.metaTitle || '',
-      rank_math_description: metaDescription,
-      rank_math_focus_keyword: article.focusKeyword || '',
     },
   };
 
@@ -320,10 +381,21 @@ async function main() {
     body: JSON.stringify(payload),
   });
 
+  const rankMathResult = await updateRankMathMeta(siteUrl, authHdr, result.id, {
+    title: article.metaTitle,
+    description: metaDescription,
+    focusKeyword: article.focusKeyword,
+  });
+
   console.log(updatePostId ? '\nDraft updated successfully.' : '\nDraft created successfully.');
   console.log(`Post ID: ${result.id}`);
   console.log(`Edit link: ${siteUrl}/wp-admin/post.php?post=${result.id}&action=edit`);
   if (result.link) console.log(`Preview link: ${result.link}`);
+  console.log(
+    `RankMath SEO meta (title/description/focus keyword): ${
+      rankMathResult.attempted ? (rankMathResult.ok ? 'set successfully' : 'FAILED, see warning above') : 'skipped (nothing to set)'
+    }`
+  );
 }
 
 main().catch((err) => fail(err.message));
