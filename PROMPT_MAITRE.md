@@ -1,4 +1,4 @@
-# PROMPT MAÎTRE NOVADECORUSA — V1.7
+# PROMPT MAÎTRE NOVADECORUSA — V1.8
 
 Document de référence consolidé pour la rédaction et la publication d'articles.
 
@@ -11,6 +11,8 @@ Document de référence consolidé pour la rédaction et la publication d'articl
 **Mise à jour V1.6** : correction d'une régression introduite par le correctif technique de la V1.5. Envelopper tout le corps de l'article dans un unique bloc Gutenberg `<!-- wp:html -->` empêchait bien les `<br />` parasites, mais rendait l'éditeur visuel totalement vide sous le titre (le bloc Custom HTML n'affiche pas de rendu visuel section par section) et empêchait toute édition normale du texte. Règle définitive (section 17) : le corps de l'article est composé de vrais blocs WordPress standards, un par élément (`<!-- wp:heading -->` pour les H2/H3, `<!-- wp:paragraph -->` pour les paragraphes, `<!-- wp:quote -->` pour les encarts d'image, `<!-- wp:list -->` pour la table des matières, `<!-- wp:separator -->` pour le séparateur visuel). Seul le bloc Schema JSON-LD (les balises `<script type="application/ld+json">`) reste isolé dans un unique `<!-- wp:html -->` placé tout à la fin du contenu, pour ne polluer aucun autre bloc. Les changements par rapport à la V1.5 sont signalés par [V1.6].
 
 **Mise à jour V1.7** : rend la conversion en blocs Gutenberg natifs permanente au niveau du code (`scripts/wp-publish-draft.js`, fonction `toGutenbergBlocks`), confirmée sur le Satellite 1 (Post ID 1255). Ajoute deux mécanismes techniques définitifs. (1) Les champs RankMath (Focus Keyword, Title, Meta Description) sont désormais renseignés via l'endpoint dédié `POST /wp-json/rankmath/v1/updateMeta` (`objectType: "post"`, `objectID`, `meta`), le seul qui fonctionne réellement : RankMath n'expose pas ces champs via l'objet `meta` standard de `/wp/v2/posts` (confirmé par test direct sur novadecorusa.com, section 17). (2) Le Featured Image (`featured_media`) et les réglages de layout Kadence (`_kad_post_layout`, `_kad_post_content_style`, etc.) ne sont jamais inclus dans le payload envoyé à WordPress : par construction de l'API REST, un champ absent du payload n'est jamais modifié, donc toute valeur déjà réglée par Juliana dans l'éditeur (Narrow/Unboxed, image mise en avant) est automatiquement préservée à chaque création ou mise à jour d'article. Ajoute également une liste de tournures interdites (section 4) déclenchant un avertissement automatique avant publication. Les changements par rapport à la V1.6 sont signalés par [V1.7]. Ces règles sont absolues et s'appliquent automatiquement à tous les articles du calendrier éditorial, sans qu'il soit nécessaire de les redemander.
+
+**Mise à jour V1.8** : le thème WordPress affiche désormais automatiquement le Featured Image sous le titre principal (BELOW TITLE), pour tous les articles. Cela rend obsolète l'ancien emplacement Image 1 du format Editorial (« juste après le hook, avant le premier H2 »), qui fait maintenant doublon visuel avec cette image mise en avant automatique. Règle définitive (section 10.1) : ne plus jamais placer d'encart image entre le hook et le premier H2. Le premier encart image de l'article (renuméroté Image 1) se place désormais immédiatement après le paragraphe d'introduction sous le premier sous-titre H2 (la section Direct Answer GSO pour le format Editorial), et la numérotation de toutes les images suivantes est décalée d'un cran (l'article perd une image au total : un Satellite passe de 4 à 3 images, un Pillar de 8 à 7). Le sujet, la source et la légende suggérée de chaque note d'image restent inchangés lors de ce déplacement, seule la position et la numérotation changent. Les changements par rapport à la V1.7 sont signalés par [V1.8]. Cette règle est absolue et s'applique automatiquement à tous les articles du calendrier éditorial, sans qu'il soit nécessaire de la redemander.
 
 ## 0. [V1.3] Prérequis techniques WordPress — à compléter avant intégration Claude Code
 
@@ -266,20 +268,21 @@ Le code JSON-LD est livré dans un bloc de code séparé à la fin de l'article,
 
 ## 10. Règles images
 
-Format Editorial : 4 images pour un Satellite (jamais regroupées, chacune à un emplacement précis avec une note dédiée) ; 6 à 8 images pour un Pillar, réparties une par section narrative supplémentaire. Format Curated Shopping Edit : 1 image de mise en scène + 1 photo produit par article présenté.
+[V1.8] Format Editorial : 3 images pour un Satellite (jamais regroupées, chacune à un emplacement précis avec une note dédiée, aucune avant le premier H2) ; 7 images pour un Pillar, réparties une par section narrative. Format Curated Shopping Edit : 1 image de mise en scène + 1 photo produit par article présenté.
 
 [V1.3] **Précision importante** Les « images » livrées par l'IA sont des notes de position et de contenu (voir format 10.2). L'IA ne télécharge, ne génère ni n'uploade aucun fichier image réel dans la médiathèque WordPress. Le choix, la recherche et l'upload de la photo elle-même restent une action manuelle de Juliana, à partir des indications de source et de sujet fournies dans la note.
 
 [V1.5] **Correction définitive** Les notes d'image ne sont plus livrées en commentaires HTML `<!-- image N : ... -->` (invisibles dans l'éditeur WordPress). Elles doivent être un bloc visuel clairement identifiable dans le corps du texte, sous forme de `<blockquote>` contenant le texte `[IMAGE N PLACEHOLDER — position: ..., subject: ..., source: ..., suggested caption: ...]`. Juliana doit pouvoir repérer à l'œil, directement dans l'éditeur WordPress, l'emplacement exact où poser chaque image.
 
-### 10.1 Position obligatoire (format Editorial, gabarit Satellite)
+### 10.1 [V1.8] Position obligatoire (format Editorial, gabarit Satellite)
 
-- Image 1 : juste après le hook, avant le premier H2
-- Image 2 : dans la section 2
-- Image 3 : dans la section 3
-- Image 4 : dans la section 4
+Le thème affichant désormais automatiquement le Featured Image sous le titre principal, aucun encart image ne se place plus entre le hook et le premier H2 (cela ferait doublon avec cette image mise en avant).
 
-Pour un Pillar, une image est ajoutée dans chacune des sections narratives supplémentaires (5 à 8), suivant la même logique de position (après le premier paragraphe de la section).
+- Image 1 : immédiatement après le paragraphe d'introduction, sous le premier sous-titre H2 (la section Direct Answer GSO)
+- Image 2 : dans la section 2 (narrative)
+- Image 3 : dans la section 3 (narrative)
+
+Un Satellite compte donc 3 images au total (au lieu de 4 avant la V1.8). Pour un Pillar, une image est ajoutée dans chacune des sections narratives supplémentaires suivantes, suivant la même logique de position (après le premier paragraphe de la section) ; un Pillar compte donc 7 images au total (au lieu de 8 avant la V1.8).
 
 ### 10.2 [V1.5] Format de la note image — bloc visuel obligatoire
 
@@ -411,8 +414,8 @@ Présenté dans le chat après le plan validé et la synthèse de contrôle. Con
 
 **16.3 Conformité structurelle**
 
-- Satellite (Editorial) : hook + 4 sections + FAQ + bio, 4 images positionnées individuellement, Direct Answer GSO de 40 à 60 mots, FAQ à exactement 3 questions, 3 liens internes (vivants dès que le cluster le permet, sinon en placeholder — voir exception de la section 11 —, dont le lien vers le Pillar)
-- Pillar (Editorial) : hook + table des matières + 6 à 8 sections + FAQ + bio, 6 à 8 images positionnées individuellement, liens (vivants ou placeholders) vers chacun des 4 Satellites du cluster
+- Satellite (Editorial) : hook + 4 sections + FAQ + bio, [V1.8] 3 images positionnées individuellement (aucune avant le premier H2, la première sous le premier sous-titre), Direct Answer GSO de 40 à 60 mots, FAQ à exactement 3 questions, 3 liens internes (vivants dès que le cluster le permet, sinon en placeholder — voir exception de la section 11 —, dont le lien vers le Pillar)
+- Pillar (Editorial) : hook + table des matières + 6 à 8 sections + FAQ + bio, [V1.8] 7 images positionnées individuellement (aucune avant le premier H2, la première sous le premier sous-titre), liens (vivants ou placeholders) vers chacun des 4 Satellites du cluster
 - Curated Shopping Edit : 5 à 8 produits avec paragraphe et lien chacun
 
 **16.4 Conformité ton Warm Minimalism** Aucun éloge du minimalisme froid ou stérile ; présence d'au moins une description sensorielle tactile concrète ; aucune culpabilisation sur les choix déco passés.
