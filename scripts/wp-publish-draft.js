@@ -171,13 +171,14 @@ async function updateRankMathMeta(siteUrl, authHdr, postId, { title, description
 // printed as warnings so they can be fixed before the draft is reviewed,
 // never silently rewritten.
 const FORBIDDEN_PHRASES = [
-  'delve', 'tapestry', 'testament to', 'boast', 'boasts', 'elevate your',
-  'unlock the', 'unleash', 'realm of', 'landscape of', 'navigate the',
-  'embark', 'seamless', 'seamlessly', 'robust', 'leverage', 'foster a',
-  'plethora', 'myriad of', 'bustling', 'in today\'s world', 'in the world of',
-  'fast-paced world', 'dive into', 'deep dive', 'game-changer', 'game changer',
-  'it is important to note', 'needless to say',
-  'in conclusion', 'let\'s explore', 'let\'s dive in', 'in this article',
+  'delve', 'tapestry', 'testament to', 'boast', 'boasts', 'elevate',
+  'nestled', 'curated haven', 'unlock the', 'unleash', 'realm of',
+  'landscape of', 'navigate the', 'embark', 'seamless', 'seamlessly',
+  'robust', 'leverage', 'foster a', 'plethora', 'myriad of', 'bustling',
+  'in today\'s world', 'in the world of', 'fast-paced world', 'dive into',
+  'deep dive', 'game-changer', 'game changer', 'it is important to note',
+  'needless to say', 'in conclusion', 'let\'s explore', 'let\'s dive in',
+  'in this article',
 ];
 
 function checkForbiddenPhrases(html) {
@@ -255,12 +256,39 @@ function escapeHtml(str) {
     .replace(/>/g, '&gt;');
 }
 
-// Converts our semantic HTML (h2/h3/p/ul/blockquote/hr, plus any trailing
-// JSON-LD <script> tags) into real Gutenberg blocks, so the article is
-// editable as normal paragraphs/headings/quotes in the visual editor
-// instead of one opaque Custom HTML blob (see PROMPT_MAITRE.md V1.6).
-// Only the JSON-LD <script> tags are wrapped in a single Custom HTML block,
-// placed at the very end, isolated from the rest of the content.
+// Builds a real, empty core/image placeholder block: no attachment ID and no
+// real photo (per PROMPT_MAITRE.md, Claude never uploads images), but a
+// genuine wp:image block Juliana can click and "Replace" in the visual
+// editor, with Alt text and a caption already filled in and the caption
+// forced to the brand's chocolate-brown (#3C2A21) via inline style
+// (PROMPT_MAITRE.md V1.9, superseding the V1.5 <blockquote> note format).
+function buildImagePlaceholderBlock({ label, alt, caption }) {
+  const svg =
+    `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800">` +
+    `<rect width="100%" height="100%" fill="#EDE6DD"/>` +
+    `<rect x="20" y="20" width="1160" height="760" fill="none" stroke="#3C2A21" stroke-width="4" stroke-dasharray="16 12"/>` +
+    `<text x="600" y="380" font-family="Georgia, serif" font-size="42" fill="#3C2A21" text-anchor="middle">Image Placeholder</text>` +
+    `<text x="600" y="430" font-family="Georgia, serif" font-size="28" fill="#3C2A21" text-anchor="middle">${escapeHtml(
+      label
+    )}</text>` +
+    `</svg>`;
+  const src = `data:image/svg+xml,${encodeURIComponent(svg)}`;
+  return (
+    `<!-- wp:image {"linkDestination":"none"} -->\n` +
+    `<figure class="wp-block-image size-large"><img src="${src}" alt="${escapeHtml(
+      alt
+    )}"/><figcaption class="wp-element-caption" style="color: #3C2A21;">${caption}</figcaption></figure>\n` +
+    `<!-- /wp:image -->`
+  );
+}
+
+// Converts our semantic HTML (h2/h3/p/ul/blockquote/hr/pre-built wp:image
+// blocks, plus any trailing JSON-LD <script> tags) into real Gutenberg
+// blocks, so the article is editable as normal paragraphs/headings/quotes/
+// images in the visual editor instead of one opaque Custom HTML blob (see
+// PROMPT_MAITRE.md V1.6). Only the JSON-LD <script> tags are wrapped in a
+// single Custom HTML block, placed at the very end, isolated from the rest
+// of the content.
 function toGutenbergBlocks(html) {
   const scripts = [];
   const withoutScripts = html.replace(
@@ -273,29 +301,32 @@ function toGutenbergBlocks(html) {
 
   const blocks = [];
   const blockRe =
-    /<h2([^>]*)>([\s\S]*?)<\/h2>|<h3([^>]*)>([\s\S]*?)<\/h3>|<blockquote><p>([\s\S]*?)<\/p><\/blockquote>|<ul>([\s\S]*?)<\/ul>|<p>([\s\S]*?)<\/p>|<hr\s*\/?>/g;
+    /(<!-- wp:image[\s\S]*?<!-- \/wp:image -->)|<h2([^>]*)>([\s\S]*?)<\/h2>|<h3([^>]*)>([\s\S]*?)<\/h3>|<blockquote><p>([\s\S]*?)<\/p><\/blockquote>|<ul>([\s\S]*?)<\/ul>|<p>([\s\S]*?)<\/p>|<hr\s*\/?>/g;
   let match;
   while ((match = blockRe.exec(withoutScripts)) !== null) {
-    if (match[2] !== undefined) {
-      const idMatch = (match[1] || '').match(/id="([^"]*)"/);
+    if (match[1] !== undefined) {
+      // Pre-built block (e.g. a wp:image placeholder) — pass through as-is.
+      blocks.push(match[1]);
+    } else if (match[3] !== undefined) {
+      const idMatch = (match[2] || '').match(/id="([^"]*)"/);
       const anchor = idMatch ? idMatch[1] : null;
       const attrs = anchor ? ` {"anchor":"${anchor}"}` : '';
       const idAttr = anchor ? ` id="${anchor}"` : '';
       blocks.push(
-        `<!-- wp:heading${attrs} -->\n<h2 class="wp-block-heading"${idAttr}>${match[2]}</h2>\n<!-- /wp:heading -->`
-      );
-    } else if (match[4] !== undefined) {
-      blocks.push(
-        `<!-- wp:heading {"level":3} -->\n<h3 class="wp-block-heading">${match[4]}</h3>\n<!-- /wp:heading -->`
+        `<!-- wp:heading${attrs} -->\n<h2 class="wp-block-heading"${idAttr}>${match[3]}</h2>\n<!-- /wp:heading -->`
       );
     } else if (match[5] !== undefined) {
       blocks.push(
-        `<!-- wp:quote -->\n<blockquote class="wp-block-quote"><p>${match[5]}</p></blockquote>\n<!-- /wp:quote -->`
+        `<!-- wp:heading {"level":3} -->\n<h3 class="wp-block-heading">${match[5]}</h3>\n<!-- /wp:heading -->`
       );
     } else if (match[6] !== undefined) {
-      blocks.push(`<!-- wp:list -->\n<ul class="wp-block-list">${match[6]}</ul>\n<!-- /wp:list -->`);
+      blocks.push(
+        `<!-- wp:quote -->\n<blockquote class="wp-block-quote"><p>${match[6]}</p></blockquote>\n<!-- /wp:quote -->`
+      );
     } else if (match[7] !== undefined) {
-      blocks.push(`<!-- wp:paragraph -->\n<p>${match[7]}</p>\n<!-- /wp:paragraph -->`);
+      blocks.push(`<!-- wp:list -->\n<ul class="wp-block-list">${match[7]}</ul>\n<!-- /wp:list -->`);
+    } else if (match[8] !== undefined) {
+      blocks.push(`<!-- wp:paragraph -->\n<p>${match[8]}</p>\n<!-- /wp:paragraph -->`);
     } else {
       blocks.push(
         '<!-- wp:separator -->\n<hr class="wp-block-separator has-alpha-channel-opacity"/>\n<!-- /wp:separator -->'
@@ -398,4 +429,8 @@ async function main() {
   );
 }
 
-main().catch((err) => fail(err.message));
+if (require.main === module) {
+  main().catch((err) => fail(err.message));
+}
+
+module.exports = { buildImagePlaceholderBlock, toGutenbergBlocks };

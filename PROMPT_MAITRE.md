@@ -1,4 +1,4 @@
-# PROMPT MAÎTRE NOVADECORUSA — V1.8
+# PROMPT MAÎTRE NOVADECORUSA — V1.9
 
 Document de référence consolidé pour la rédaction et la publication d'articles.
 
@@ -13,6 +13,8 @@ Document de référence consolidé pour la rédaction et la publication d'articl
 **Mise à jour V1.7** : rend la conversion en blocs Gutenberg natifs permanente au niveau du code (`scripts/wp-publish-draft.js`, fonction `toGutenbergBlocks`), confirmée sur le Satellite 1 (Post ID 1255). Ajoute deux mécanismes techniques définitifs. (1) Les champs RankMath (Focus Keyword, Title, Meta Description) sont désormais renseignés via l'endpoint dédié `POST /wp-json/rankmath/v1/updateMeta` (`objectType: "post"`, `objectID`, `meta`), le seul qui fonctionne réellement : RankMath n'expose pas ces champs via l'objet `meta` standard de `/wp/v2/posts` (confirmé par test direct sur novadecorusa.com, section 17). (2) Le Featured Image (`featured_media`) et les réglages de layout Kadence (`_kad_post_layout`, `_kad_post_content_style`, etc.) ne sont jamais inclus dans le payload envoyé à WordPress : par construction de l'API REST, un champ absent du payload n'est jamais modifié, donc toute valeur déjà réglée par Juliana dans l'éditeur (Narrow/Unboxed, image mise en avant) est automatiquement préservée à chaque création ou mise à jour d'article. Ajoute également une liste de tournures interdites (section 4) déclenchant un avertissement automatique avant publication. Les changements par rapport à la V1.6 sont signalés par [V1.7]. Ces règles sont absolues et s'appliquent automatiquement à tous les articles du calendrier éditorial, sans qu'il soit nécessaire de les redemander.
 
 **Mise à jour V1.8** : le thème WordPress affiche désormais automatiquement le Featured Image sous le titre principal (BELOW TITLE), pour tous les articles. Cela rend obsolète l'ancien emplacement Image 1 du format Editorial (« juste après le hook, avant le premier H2 »), qui fait maintenant doublon visuel avec cette image mise en avant automatique. Règle définitive (section 10.1) : ne plus jamais placer d'encart image entre le hook et le premier H2. Le premier encart image de l'article (renuméroté Image 1) se place désormais immédiatement après le paragraphe d'introduction sous le premier sous-titre H2 (la section Direct Answer GSO pour le format Editorial), et la numérotation de toutes les images suivantes est décalée d'un cran (l'article perd une image au total : un Satellite passe de 4 à 3 images, un Pillar de 8 à 7). Le sujet, la source et la légende suggérée de chaque note d'image restent inchangés lors de ce déplacement, seule la position et la numérotation changent. Les changements par rapport à la V1.7 sont signalés par [V1.8]. Cette règle est absolue et s'applique automatiquement à tous les articles du calendrier éditorial, sans qu'il soit nécessaire de la redemander.
+
+**Mise à jour V1.9** : remplace définitivement le format de placeholder image en `<blockquote>` (V1.5) par un vrai bloc Gutenberg `core/image` vide, testé et confirmé sur le Pillar (Post ID 1199). Chaque encart image est désormais un bloc `<!-- wp:image -->` contenant un visuel de substitution neutre (SVG intégré, ton crème/marron cohérent avec la charte, jamais téléchargé dans la médiathèque, jamais présenté comme une vraie photo), avec l'Alt Text et la légende déjà renseignés. Juliana n'a plus qu'à cliquer sur le bloc dans l'éditeur visuel et utiliser « Remplacer » pour poser la vraie photo, au lieu de retaper Alt/légende à partir d'une note texte. Règle absolue : la légende (`<figcaption>`) de **chaque** image, sans exception, porte l'attribut `style="color: #3C2A21;"` (marron chocolat de la charte). Étend également la liste des tournures interdites de la section 4 avec : elevate (dans un sens décoratif), nestled, curated haven. Les changements par rapport à la V1.8 sont signalés par [V1.9]. Cette règle est absolue et s'applique automatiquement à tous les articles du calendrier éditorial, sans qu'il soit nécessaire de la redemander.
 
 ## 0. [V1.3] Prérequis techniques WordPress — à compléter avant intégration Claude Code
 
@@ -112,7 +114,7 @@ Le site est organisé en 8 catégories. Chaque article appartient à une seule c
 - Aucun cliché déco répété sans substance (« aesthetic », « vibe », « minimalist » utilisés en filler)
 - Aucun lien sortant vers un concurrent éditorial
 
-[V1.7] **Liste de tournures interdites (vérification technique automatique)** En plus des tics génériques déjà listés, ces mots et expressions signalent une voix IA plutôt que celle de Juliana, et déclenchent un avertissement automatique du script de publication (`scripts/wp-publish-draft.js`) avant intégration : delve, tapestry, testament to, boast/boasts, elevate your, unlock the, unleash, realm of, landscape of, navigate the, embark, seamless/seamlessly, robust, leverage, foster a, plethora, myriad of, bustling, in today's world, in the world of, fast-paced world, dive into, deep dive, game-changer, it is important to note, needless to say, in conclusion, let's explore, let's dive in, in this article. Un avertissement n'empêche pas la publication mais doit être traité comme une relecture obligatoire avant validation finale par Juliana.
+[V1.7/V1.9] **Liste de tournures interdites (vérification technique automatique)** En plus des tics génériques déjà listés, ces mots et expressions signalent une voix IA plutôt que celle de Juliana, et déclenchent un avertissement automatique du script de publication (`scripts/wp-publish-draft.js`) avant intégration : delve, tapestry, testament to, boast/boasts, elevate, nestled, curated haven, unlock the, unleash, realm of, landscape of, navigate the, embark, seamless/seamlessly, robust, leverage, foster a, plethora, myriad of, bustling, in today's world, in the world of, fast-paced world, dive into, deep dive, game-changer, it is important to note, needless to say, in conclusion, let's explore, let's dive in, in this article. Un avertissement n'empêche pas la publication mais doit être traité comme une relecture obligatoire avant validation finale par Juliana.
 
 **Test de lecture** Avant publication, l'IA doit pouvoir répondre oui à ces trois questions :
 
@@ -284,13 +286,20 @@ Le thème affichant désormais automatiquement le Featured Image sous le titre p
 
 Un Satellite compte donc 3 images au total (au lieu de 4 avant la V1.8). Pour un Pillar, une image est ajoutée dans chacune des sections narratives supplémentaires suivantes, suivant la même logique de position (après le premier paragraphe de la section) ; un Pillar compte donc 7 images au total (au lieu de 8 avant la V1.8).
 
-### 10.2 [V1.5] Format de la note image — bloc visuel obligatoire
+### 10.2 [V1.9] Format de la note image — vrai bloc Gutenberg `core/image`
 
-Chaque note d'image est un bloc `<blockquote>` distinct, inséré directement dans le corps HTML à l'emplacement voulu (jamais un commentaire HTML `<!-- ... -->`, invisible dans l'éditeur) :
+Chaque emplacement image est un vrai bloc WordPress `<!-- wp:image -->`, inséré directement dans le corps HTML à l'emplacement voulu (jamais un commentaire HTML `<!-- ... -->` invisible, ni un `<blockquote>` de simple note texte comme en V1.5) :
 
-`<blockquote><p>[IMAGE N PLACEHOLDER — position: description précise. Subject: description du sujet. Source: plateforme(s) suggérée(s). Suggested caption: légende prête à l'emploi.]</p></blockquote>`
+```
+<!-- wp:image {"linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="DATA_URI_PLACEHOLDER_SVG" alt="Alt text descriptif confirmé"/><figcaption class="wp-element-caption" style="color: #3C2A21;">Légende prête à l'emploi</figcaption></figure>
+<!-- /wp:image -->
+```
 
-Exemple : `<blockquote><p>[IMAGE 2 PLACEHOLDER — position: inside section 2, after the first paragraph. Subject: a raw travertine side table beside a linen-upholstered chair in warm natural light. Source: Unsplash or product photo from the recommended affiliate listing. Suggested caption: One material can carry the warmth an entire room is missing.]</p></blockquote>`
+- `src` : un visuel de substitution neutre généré en SVG intégré (jamais une vraie photo, jamais un fichier téléchargé dans la médiathèque) — Claude Code ne télécharge, ne génère ni n'uploade aucune vraie image, conformément à la précision [V1.3] ci-dessus. Juliana clique sur le bloc dans l'éditeur visuel et utilise « Remplacer » pour poser la vraie photo.
+- `alt` : Alt Text descriptif final, déjà correct, jamais un texte de note à retravailler.
+- `<figcaption>` : légende finale destinée aux lecteurs, avec **toujours** l'attribut `style="color: #3C2A21;"` (marron chocolat de la charte), sans exception.
+- Généré par `buildImagePlaceholderBlock()` dans `scripts/wp-publish-draft.js`, reconnu tel quel (passthrough) par `toGutenbergBlocks()`.
 
 ### 10.3 Sources autorisées
 
