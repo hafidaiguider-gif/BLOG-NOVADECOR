@@ -301,7 +301,7 @@ function toGutenbergBlocks(html) {
 
   const blocks = [];
   const blockRe =
-    /(<!-- wp:image[\s\S]*?<!-- \/wp:image -->)|<h2([^>]*)>([\s\S]*?)<\/h2>|<h3([^>]*)>([\s\S]*?)<\/h3>|<blockquote><p>([\s\S]*?)<\/p><\/blockquote>|<ul>([\s\S]*?)<\/ul>|<p>([\s\S]*?)<\/p>|<hr\s*\/?>/g;
+    /(<!-- wp:image[\s\S]*?<!-- \/wp:image -->)|<h2([^>]*)>([\s\S]*?)<\/h2>|<h3([^>]*)>([\s\S]*?)<\/h3>|<blockquote><p>([\s\S]*?)<\/p><\/blockquote>|<table>([\s\S]*?)<\/table>|<ul>([\s\S]*?)<\/ul>|<p>([\s\S]*?)<\/p>|<hr\s*\/?>/g;
   let match;
   while ((match = blockRe.exec(withoutScripts)) !== null) {
     if (match[1] !== undefined) {
@@ -324,9 +324,13 @@ function toGutenbergBlocks(html) {
         `<!-- wp:quote -->\n<blockquote class="wp-block-quote"><p>${match[6]}</p></blockquote>\n<!-- /wp:quote -->`
       );
     } else if (match[7] !== undefined) {
-      blocks.push(`<!-- wp:list -->\n<ul class="wp-block-list">${match[7]}</ul>\n<!-- /wp:list -->`);
+      blocks.push(
+        `<!-- wp:table -->\n<figure class="wp-block-table"><table>${match[7]}</table></figure>\n<!-- /wp:table -->`
+      );
     } else if (match[8] !== undefined) {
-      blocks.push(`<!-- wp:paragraph -->\n<p>${match[8]}</p>\n<!-- /wp:paragraph -->`);
+      blocks.push(`<!-- wp:list -->\n<ul class="wp-block-list">${match[8]}</ul>\n<!-- /wp:list -->`);
+    } else if (match[9] !== undefined) {
+      blocks.push(`<!-- wp:paragraph -->\n<p>${match[9]}</p>\n<!-- /wp:paragraph -->`);
     } else {
       blocks.push(
         '<!-- wp:separator -->\n<hr class="wp-block-separator has-alpha-channel-opacity"/>\n<!-- /wp:separator -->'
