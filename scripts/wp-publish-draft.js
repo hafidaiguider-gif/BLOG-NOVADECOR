@@ -282,6 +282,30 @@ function buildImagePlaceholderBlock({ label, alt, caption }) {
   );
 }
 
+// Optional, removable top hero image block: a native core/image block sized
+// for a 1600x900 (16:9) landscape crop, with the aspectRatio/scale
+// attributes Gutenberg itself uses so the image editor's crop tool and
+// "Replace"/"Delete block" controls behave exactly like a normal image
+// block. No real photo is uploaded (per PROMPT_MAITRE.md); the placeholder
+// SVG below stands in until Juliana picks a real one from the Media Library.
+function buildHeroImageBlock({ alt, caption }) {
+  const svg =
+    `<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900">` +
+    `<rect width="100%" height="100%" fill="#EDE6DD"/>` +
+    `<rect x="24" y="24" width="1552" height="852" fill="none" stroke="#3C2A21" stroke-width="4" stroke-dasharray="18 14"/>` +
+    `<text x="800" y="430" font-family="Georgia, serif" font-size="46" fill="#3C2A21" text-anchor="middle">Hero Image Placeholder</text>` +
+    `<text x="800" y="485" font-family="Georgia, serif" font-size="26" fill="#3C2A21" text-anchor="middle">1600 x 900 &#8212; click to upload or choose from Media Library</text>` +
+    `</svg>`;
+  const src = `data:image/svg+xml,${encodeURIComponent(svg)}`;
+  return (
+    `<!-- wp:image {"aspectRatio":"16/9","scale":"cover","sizeSlug":"large","linkDestination":"none"} -->\n` +
+    `<figure class="wp-block-image size-large"><img src="${src}" alt="${escapeHtml(
+      alt
+    )}" style="aspect-ratio:16/9;object-fit:cover;"/><figcaption class="wp-element-caption" style="color: #3C2A21;">${caption}</figcaption></figure>\n` +
+    `<!-- /wp:image -->`
+  );
+}
+
 // Converts our semantic HTML (h2/h3/p/ul/blockquote/hr/pre-built wp:image
 // blocks, plus any trailing JSON-LD <script> tags) into real Gutenberg
 // blocks, so the article is editable as normal paragraphs/headings/quotes/
@@ -437,4 +461,4 @@ if (require.main === module) {
   main().catch((err) => fail(err.message));
 }
 
-module.exports = { buildImagePlaceholderBlock, toGutenbergBlocks };
+module.exports = { buildImagePlaceholderBlock, buildHeroImageBlock, toGutenbergBlocks };
