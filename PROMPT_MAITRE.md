@@ -1,6 +1,8 @@
-# PROMPT MAÎTRE NOVADECORUSA — V2.4
+# PROMPT MAÎTRE NOVADECORUSA — V2.5
 
 Document de référence consolidé pour la rédaction et la publication d'articles.
+
+**Mise à jour V2.5** : arbitrages définitifs de Juliana sur les « MANDATORY SEO & RANK MATH GENERATION RULES », en remplacement des règles correspondantes plus souples des sections 9 et 12. (1) Densité du mot-clé (section 9) : aucun plancher rigide ; cible naturelle 0,6 %–1,0 % adaptée à la longueur (environ 6 à 8 occurrences pour un Pillar de 1500+ mots, 4 à 5 pour un Satellite), en remplacement du seuil « trois apparitions minimum ». (2) Titres (section 5.1/9) : le titre WordPress (H1/`post_title`) respecte toujours strictement PLAN_EDITORIAL.md, sans modification ; l'optimisation chiffre/power word ne s'applique, de façon optionnelle, qu'au Meta Title RankMath (`rank_math_title`), et seulement si cela ne dénature pas le sujet — en cas de doute, priorité absolue au titre du plan éditorial. (3) Liens externes (section 12) : exactement 1 lien sortant dofollow autorisé par article, exclusivement vers une source officielle/éducative/technique non concurrente (Wikipedia, Pantone, Sherwin-Williams, organisme officiel ou musée — jamais un blog déco concurrent), avec `target="_blank" rel="noopener"`, pour satisfaire le critère de lien externe de RankMath ; les liens d'affiliation/commerciaux restent `rel="sponsored"`, et les autres citations éditoriales non commerciales restent `rel="nofollow"` comme auparavant. (4) La méthode d'intégration WordPress en brouillon via l'API REST (section 17) reste inchangée. Les changements par rapport à la V2.4 sont signalés par [V2.5].
 
 **Mise à jour V2.4** : le Cluster 3 (Palette) est désormais complet : 1 Pillar (Post 1555) + 4 Satellites (1582 Terracotta, 1598 Chocolate Brown, 1614 Layering Cream/Beige, 1615 Earth Tones). Sur confirmation explicite de Juliana, les 12 placeholders internes du cluster ont été convertis en vraies balises `<a href="https://novadecorusa.com/{slug}/">Titre réel de la cible</a>`, selon la procédure V2.0 habituelle (relecture live de chaque post via `context=edit`, y compris pour re-détecter tout slug déjà changé manuellement, mise à jour ciblée du seul champ `content`, jamais `status`/`slug`/`featured_media`, puis resynchronisation du dépôt local). **Point de vigilance propre à ce cluster** : au moment de la passe, le Pillar (1555), Terracotta (1582) et Chocolate Brown (1598) avaient déjà été reprogrammés en statut `future` par Juliana directement dans WordPress (slugs également modifiés pour 1582, ex. `terracotta-neutral-palette-decor-ideas`), avec featured images déjà posées. La mise à jour REST a donc volontairement omis le champ `status` du payload pour ne jamais faire régresser un post déjà planifié vers `draft` ; vérifié après coup que les 3 statuts `future` et leurs dates de publication programmée sont restés inchangés. En parallèle, une vérification complète du Cluster 2 (Textures) a confirmé 0 placeholder résiduel, tous les liens internes bidirectionnels valides, et les 5 URLs réelles toutes en HTTP 200 (aucune action corrective nécessaire). Les changements par rapport à la V2.3 sont signalés par [V2.4].
 
@@ -258,7 +260,11 @@ Pour tout article Pillar, insérer immédiatement après le H1 (avant le hook na
 
 ## 9. Règles SEO et SGO
 
-Le focused keyword doit apparaître tel quel dans : le corps de l'article, le Meta Title, la Meta Description. Trois apparitions minimum, vérification obligatoire.
+Le focused keyword doit apparaître tel quel dans : le corps de l'article, le Meta Title, la Meta Description.
+
+[V2.5] **Densité du mot-clé** Aucun plancher rigide. Cible une densité naturelle de 0,6 % à 1,0 % adaptée à la longueur du texte : environ 6 à 8 occurrences pour un Pillar de 1500+ mots, 4 à 5 occurrences pour un Satellite plus court. Ne jamais forcer le nombre d'occurrences au détriment de la fluidité (sur-remplissage interdit).
+
+[V2.5] **Titre WordPress vs. Meta Title RankMath** Le titre du post WordPress (H1 / `post_title`) respecte toujours strictement PLAN_EDITORIAL.md, sans aucune modification. Un ajout optionnel de chiffre ou de power word ne s'applique, le cas échéant, qu'au Meta Title RankMath (`rank_math_title`), et seulement s'il ne dénature pas le sujet. En cas de doute, priorité absolue au titre du plan éditorial.
 
 - Focused keyword : 3 à 7 mots, langage naturel, requête de recherche réelle
 - Meta Title : 60 caractères max, Title Case, contient le focused keyword
@@ -367,7 +373,9 @@ NovaDecorUSA vit de trois sources : l'affiliation haut de gamme, la vente de pro
 - Ne s'intègre jamais dans le corps narratif de l'article
 - Peut être mentionné brièvement dans la bio autrice ou les Editorial Notes
 
-**Sources non commerciales autorisées** Institutions ou publications de design reconnues, en `rel="nofollow"`, pour ancrer une affirmation factuelle.
+[V2.5] **Lien d'autorité dofollow (1 par article)** Exactement 1 lien sortant dofollow est autorisé par article, pour satisfaire le critère de lien externe de RankMath. Destination strictement limitée à une source officielle, éducative ou technique de référence, non concurrente (ex. : Wikipedia pour l'histoire d'un matériau, Pantone ou Sherwin-Williams pour une référence exacte de teinte, un organisme officiel ou un musée) — interdiction formelle de lier vers un autre blog de décoration concurrent. Ce lien porte toujours `target="_blank" rel="noopener"`, pour que le lecteur garde NovaDecorUSA ouvert dans son onglet.
+
+**Sources non commerciales autorisées (hors quota dofollow)** Institutions ou publications de design reconnues, en `rel="nofollow"`, pour ancrer une affirmation factuelle supplémentaire au-delà du lien dofollow unique.
 
 **Sources interdites**
 

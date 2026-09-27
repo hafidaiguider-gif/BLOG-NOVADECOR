@@ -107,3 +107,30 @@ claude-seo/
 2. **WordPress Native**: REST API integration with Application Password auth
 3. **AI-Ready**: GEO optimization for ChatGPT, Perplexity, Google AI Overviews
 4. **Pillar Strategy**: Topic clusters with hub-and-spoke architecture
+
+## NovaDecorUSA — Mandatory SEO & RankMath Rules
+
+These rules are permanent and apply automatically to every article generated or updated
+for novadecorusa.com, without needing to be restated. They supersede any prior looser
+wording on the same points. Full editorial rulebook: `PROMPT_MAITRE.md` (see sections 9
+and 12, updated in lockstep with this list).
+
+1. **One dofollow outbound authority link per article** — exactly one outbound link per
+   article may be dofollow, to satisfy RankMath's external-link check. Destination must be
+   an official, educational, or technical reference (e.g. Wikipedia for material history,
+   Pantone / Sherwin-Williams for an exact color reference, an official body or museum) —
+   **never** a competing decor/design blog. That link always carries
+   `target="_blank" rel="noopener"`. Affiliate or commercial links stay strictly
+   `nofollow` / `sponsored`; non-commercial editorial citations beyond the one dofollow
+   slot stay `nofollow` as before.
+2. **Post title vs. PLAN_EDITORIAL.md** — the WordPress post title (H1 / `post_title`)
+   always matches PLAN_EDITORIAL.md exactly, no modification. Numeral/power-word
+   optimization is optional and applies only to the RankMath meta title
+   (`rank_math_title`), and only if it doesn't distort the subject. Any doubt resolves in
+   favor of the plan's exact title.
+3. **Keyword density** — no rigid floor. Target a natural 0.6%–1.0% density scaled to word
+   count (roughly 6–8 occurrences for a 1500+ word Pillar, 4–5 for a shorter Satellite).
+   Never force-stuff to hit a number.
+4. **Draft workflow unchanged** — articles continue to be created via the WordPress REST
+   API in `draft` status, following the existing integration method (targeted field
+   updates only, never clobbering manually-set `status`/`slug`/`featured_media`).
