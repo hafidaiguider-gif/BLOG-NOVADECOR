@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-labelledby="t">
+  <title id="t">Raffinement d'équipement</title>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF6B00"/><stop offset="1" stop-color="#FF3D00"/>
+    </linearGradient>
+    <linearGradient id="a" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFE8D6"/><stop offset="1" stop-color="#F4A261"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="#12141D" stroke="url(#g)" stroke-opacity=".6" stroke-width="1.5"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6">
+    <path d="M14 46 L36 24 L42 30 L20 52 Z" stroke="url(#a)"/>
+    <path d="M36 24 L40 14 L50 24 L42 30" stroke="url(#g)"/>
+    <path d="M48 40 V48 M44 44 H52" stroke="url(#g)"/>
+    <path d="M18 14 V20 M15 17 H21" stroke="url(#a)"/>
+  </g>
+</svg>
