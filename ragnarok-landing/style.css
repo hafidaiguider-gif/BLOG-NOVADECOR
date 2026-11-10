@@ -242,6 +242,60 @@ strong { color: var(--white); }
 .card-grid { display: grid; gap: 20px; }
 .card-grid-4 { grid-template-columns: repeat(4, 1fr); }
 
+/* ---------- Trailer player ---------- */
+.video-frame {
+  position: relative; aspect-ratio: 16 / 9; overflow: hidden;
+  border-radius: 24px; background: #000;
+  border: 1px solid rgba(255, 107, 0, 0.35);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(255, 107, 0, 0.15);
+}
+.video-el, .video-poster, .video-poster img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.video-el { object-fit: contain; background: #000; }
+.video-poster { padding: 0; border: 0; background: none; cursor: pointer; color: var(--white); font: inherit; }
+.video-poster img { object-fit: cover; transition: transform .6s ease, filter .3s ease; }
+.video-poster::after {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(11, 12, 16, 0.05), rgba(11, 12, 16, 0.55) 70%),
+              linear-gradient(0deg, rgba(11, 12, 16, 0.85) 0%, transparent 40%);
+}
+.video-poster:hover img { transform: scale(1.03); filter: brightness(1.08); }
+.video-poster:focus-visible { outline-offset: -6px; border-radius: 24px; }
+.play-btn {
+  position: absolute; z-index: 2; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: clamp(76px, 10vw, 104px); height: clamp(76px, 10vw, 104px);
+  display: grid; place-items: center; border-radius: 50%;
+  background: var(--flame); color: var(--void);
+  box-shadow: 0 0 15px rgba(255, 107, 0, 0.8), 0 0 30px rgba(255, 61, 0, 0.5);
+  transition: transform .25s ease;
+}
+.play-btn svg { margin-left: 5px; }
+.play-btn::before, .play-btn::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  border: 2px solid rgba(255, 107, 0, 0.75);
+  animation: play-wave 2.4s ease-out infinite;
+}
+.play-btn::after { animation-delay: 1.2s; }
+@keyframes play-wave { 0% { transform: scale(1); opacity: .9; } 100% { transform: scale(1.9); opacity: 0; } }
+.video-poster:hover .play-btn, .video-poster:focus-visible .play-btn { transform: translate(-50%, -50%) scale(1.08); }
+.video-meta {
+  position: absolute; z-index: 2; left: clamp(16px, 3vw, 32px); bottom: clamp(14px, 3vw, 28px);
+  display: flex; flex-direction: column; text-align: left; line-height: 1.3;
+}
+.video-meta strong { font-size: clamp(1.05rem, 2vw, 1.35rem); }
+.video-meta span { font-size: 0.9375rem; color: var(--peach); }
+.video-frame.is-playing .video-poster { display: none; }
+.video-note { margin-top: 14px; text-align: center; font-size: 0.9375rem; }
+
+/* ---------- Footer CTA ---------- */
+.footer-cta {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px;
+  padding-block: 32px; margin-bottom: 24px; border-bottom: var(--glass-border);
+}
+.footer-brand { display: flex; align-items: center; gap: 14px; }
+.footer-brand p { display: flex; flex-direction: column; line-height: 1.3; }
+.footer-brand span { font-size: 0.9375rem; }
+.footer-cta .cta-block { align-items: flex-end; }
+
 /* ---------- Classes ---------- */
 .class-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .class-chip {
@@ -341,7 +395,7 @@ strong { color: var(--white); }
 .final-inner .lead { margin-bottom: 12px; }
 
 /* ---------- Footer ---------- */
-.site-footer { border-top: var(--glass-border); padding-block: 32px 120px; font-size: 0.9375rem; }
+.site-footer { border-top: var(--glass-border); padding-block: 8px 120px; font-size: 0.9375rem; }
 .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; }
 .back-top { font-weight: 600; }
 
@@ -399,6 +453,9 @@ strong { color: var(--white); }
   .stat-row strong { font-size: 1.6rem; }
   .btn-lg { padding-inline: 20px; font-size: 1.1875rem; }
   .floating-text span { display: none; }
+  .footer-cta, .footer-cta .cta-block { justify-content: center; align-items: center; text-align: center; }
+  .footer-cta .btn { width: 100%; }
+  .video-meta span { display: none; }
   .floating-text strong { font-size: 0.875rem; }
   .floating-inner img { display: none; }
   .floating-inner .btn { font-size: 0.9375rem; padding-inline: 16px; }

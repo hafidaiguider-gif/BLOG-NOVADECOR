@@ -4,6 +4,7 @@
  * - Accessible mobile menu (aria-expanded, Escape, closes on link click)
  * - WAI-ARIA FAQ accordion (Enter/Space, arrow keys, Home/End)
  * - Floating CTA bar shown outside the hero, hidden over the final CTA
+ * - Trailer: native <video>, MP4 fetched only on click, Steam page fallback
  * - CTA click tracking via window.dataLayer (Steam URL is never modified)
  */
 (function () {
@@ -91,14 +92,16 @@
     var bar = document.getElementById('floating-bar');
     var hero = document.getElementById('hero');
     var final = document.getElementById('final');
+    var player = document.querySelector('[data-video]');
     if (!bar || !hero) return;
     var link = bar.querySelector('a');
 
     var heroVisible = true;
     var finalVisible = false;
+    var playerVisible = false;
 
     function update() {
-      var show = !heroVisible && !finalVisible;
+      var show = !heroVisible && !finalVisible && !playerVisible;
       bar.classList.toggle('is-visible', show);
       bar.setAttribute('aria-hidden', String(!show));
       if (link) link.setAttribute('tabindex', show ? '0' : '-1');
@@ -120,6 +123,85 @@
 
     observer.observe(hero);
     if (final) observer.observe(final);
+
+    if (player) {
+      new IntersectionObserver(function (entries) {
+        playerVisible = entries[0].intersectionRatio >= 0.6;
+        update();
+      }, { threshold: [0, 0.6, 1] }).observe(player);
+    }
+  }
+
+  /* ---------- Trailer player (native <video>, loaded on click only) ---------- */
+  function track(data) {
+    window.dataLayer = window.dataLayer || [];
+    data.hero_angle = heroAngle;
+    window.dataLayer.push(data);
+  }
+
+  function initVideo() {
+    var frame = document.querySelector('[data-video]');
+    if (!frame) return;
+    var video = frame.querySelector('video');
+    var poster = frame.querySelector('.video-poster');
+    var source = video && video.querySelector('source[data-src]');
+    if (!video || !poster || !source) return;
+    var fellBack = false;
+
+    function fallbackToSteam(reason) {
+      if (fellBack) return;
+      fellBack = true;
+      track({ event: 'video_fallback', reason: reason, video_destination: STEAM_URL });
+      frame.classList.remove('is-playing');
+      video.hidden = true;
+      poster.hidden = false;
+      window.open(STEAM_URL, '_blank', 'noopener');
+    }
+
+    function goFullscreenOnMobile() {
+      if (!window.matchMedia('(max-width: 767px)').matches) return;
+      try {
+        if (video.requestFullscreen) {
+          var p = video.requestFullscreen();
+          if (p && p.catch) p.catch(function () {});
+        } else if (video.webkitEnterFullscreen) {
+          video.webkitEnterFullscreen();
+        }
+      } catch (err) { /* fullscreen not allowed here: keep inline playback */ }
+    }
+
+    poster.addEventListener('click', function () {
+      if (!source.getAttribute('src')) {
+        source.setAttribute('src', source.getAttribute('data-src'));
+        source.addEventListener('error', function () { fallbackToSteam('source_error'); });
+        video.load();
+      }
+      if (video.canPlayType && !video.canPlayType('video/mp4')) {
+        fallbackToSteam('mp4_unsupported');
+        return;
+      }
+      frame.classList.add('is-playing');
+      video.hidden = false;
+      poster.hidden = true;
+      track({ event: 'video_play', video_title: 'Official trailer' });
+      var playing = video.play();
+      if (playing && playing.catch) {
+        playing.catch(function (err) {
+          if (err && err.name === 'NotAllowedError') return; // user can press play in the native controls
+          fallbackToSteam('play_error');
+        });
+      }
+      video.focus();
+      goFullscreenOnMobile();
+    });
+
+    video.addEventListener('ended', function () {
+      track({ event: 'video_complete', video_title: 'Official trailer' });
+      if (document.fullscreenElement && document.exitFullscreen) {
+        var p = document.exitFullscreen();
+        if (p && p.catch) p.catch(function () {});
+      }
+    });
   }
 
   /* ---------- CTA click tracking ---------- */
@@ -143,6 +225,7 @@
     initNav();
     initAccordion();
     initFloatingBar();
+    initVideo();
     initTracking();
   }
 
