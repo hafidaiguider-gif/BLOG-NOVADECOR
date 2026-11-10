@@ -4,7 +4,8 @@
  * - Accessible mobile menu (aria-expanded, Escape, closes on link click)
  * - WAI-ARIA FAQ accordion (Enter/Space, arrow keys, Home/End)
  * - Floating CTA bar shown outside the hero, hidden over the final CTA
- * - Trailer: native <video>, MP4 fetched only on click, Steam page fallback
+ * - Trailer: native <video>, MP4 fetched only on click, "Watch on Steam" fallback
+ * - "Send to my PC": Web Share API, clipboard fallback
  * - CTA click tracking via window.dataLayer (Steam URL is never modified)
  */
 (function () {
@@ -145,6 +146,7 @@
     var video = frame.querySelector('video');
     var poster = frame.querySelector('.video-poster');
     var source = video && video.querySelector('source[data-src]');
+    var fallback = frame.querySelector('.video-fallback');
     if (!video || !poster || !source) return;
     var fellBack = false;
 
@@ -152,10 +154,15 @@
       if (fellBack) return;
       fellBack = true;
       track({ event: 'video_fallback', reason: reason, video_destination: STEAM_URL });
+      try { video.pause(); } catch (err) { /* ignore */ }
       frame.classList.remove('is-playing');
       video.hidden = true;
       poster.hidden = false;
-      window.open(STEAM_URL, '_blank', 'noopener');
+      if (fallback) {
+        fallback.hidden = false;
+        var link = fallback.querySelector('a');
+        if (link) link.focus();
+      }
     }
 
     function goFullscreenOnMobile() {
@@ -204,6 +211,39 @@
     });
   }
 
+  /* ---------- "Send to my PC" share button ---------- */
+  function initShare() {
+    var btn = document.querySelector('[data-share]');
+    if (!btn) return;
+    var status = btn.parentNode.querySelector('.share-status');
+    var url = window.location.href.split('#')[0];
+
+    function say(msg) { if (status) status.textContent = msg; }
+
+    btn.addEventListener('click', function () {
+      track({ event: 'share_to_pc_click' });
+      if (navigator.share) {
+        navigator.share({ title: 'Ragnarok: The New World — Play Free on Steam', url: url })
+          .then(function () { say('Sent! Open it on your PC to install.'); })
+          .catch(function (err) {
+            if (!err || err.name !== 'AbortError') copyLink();
+          });
+        return;
+      }
+      copyLink();
+    });
+
+    function copyLink() {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url)
+          .then(function () { say('Link copied. Paste it on your PC to install.'); })
+          .catch(function () { say('Copy this link to your PC: ' + url); });
+      } else {
+        say('Copy this link to your PC: ' + url);
+      }
+    }
+  }
+
   /* ---------- CTA click tracking ---------- */
   function initTracking() {
     window.dataLayer = window.dataLayer || [];
@@ -226,6 +266,7 @@
     initAccordion();
     initFloatingBar();
     initVideo();
+    initShare();
     initTracking();
   }
 
