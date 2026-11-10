@@ -304,7 +304,6 @@ strong { color: var(--white); }
   .primary-nav ul { flex-direction: column; gap: 4px; }
   .primary-nav ul a { display: block; padding: 12px 4px; }
   .hero-grid { grid-template-columns: 1fr; }
-  .hero-visual { order: -1; }
 }
 
 @media (max-width: 560px) {
