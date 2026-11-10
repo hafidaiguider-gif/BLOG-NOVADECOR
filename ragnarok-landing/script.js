@@ -1,16 +1,29 @@
 /**
- * Ragnarok: The New World — Landing page (TAF 2, Groupe 109)
- * - Menu mobile accessible (aria-expanded, Échap, fermeture au clic)
- * - Accordéon FAQ WAI-ARIA (Entrée/Espace, flèches, Début/Fin)
- * - Barre CTA flottante affichée hors du hero et masquée sur le CTA final
- * - Suivi des clics CTA via window.dataLayer (sans modifier l'URL Steam)
+ * Ragnarok: The New World — Landing page (TAF 2, Group 109)
+ * - Hero headline A/B test: ?angle=b on the landing URL (default: angle A)
+ * - Accessible mobile menu (aria-expanded, Escape, closes on link click)
+ * - WAI-ARIA FAQ accordion (Enter/Space, arrow keys, Home/End)
+ * - Floating CTA bar shown outside the hero, hidden over the final CTA
+ * - CTA click tracking via window.dataLayer (Steam URL is never modified)
  */
 (function () {
   'use strict';
 
   var STEAM_URL = 'https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/';
+  var heroAngle = 'a';
 
-  /* ---------- Menu mobile ---------- */
+  /* ---------- Hero headline A/B ---------- */
+  function initHeroAngle() {
+    var title = document.getElementById('hero-title');
+    if (!title) return;
+    var match = /[?&]angle=([ab])\b/i.exec(window.location.search || '');
+    heroAngle = match ? match[1].toLowerCase() : 'a';
+    var text = title.getAttribute('data-angle-' + heroAngle);
+    if (text) title.textContent = text;
+    document.documentElement.setAttribute('data-hero-angle', heroAngle);
+  }
+
+  /* ---------- Mobile menu ---------- */
   function initNav() {
     var toggle = document.querySelector('.nav-toggle');
     var nav = document.getElementById('primary-nav');
@@ -18,7 +31,7 @@
 
     function setOpen(open) {
       toggle.setAttribute('aria-expanded', String(open));
-      toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
       nav.classList.toggle('is-open', open);
     }
 
@@ -43,7 +56,7 @@
     else if (mq.addListener) mq.addListener(onChange);
   }
 
-  /* ---------- Accordéon FAQ ---------- */
+  /* ---------- FAQ accordion ---------- */
   function initAccordion() {
     var triggers = Array.prototype.slice.call(document.querySelectorAll('.accordion-trigger'));
     if (!triggers.length) return;
@@ -73,7 +86,7 @@
     });
   }
 
-  /* ---------- Barre CTA flottante ---------- */
+  /* ---------- Floating CTA bar ---------- */
   function initFloatingBar() {
     var bar = document.getElementById('floating-bar');
     var hero = document.getElementById('hero');
@@ -109,7 +122,7 @@
     if (final) observer.observe(final);
   }
 
-  /* ---------- Suivi des clics CTA ---------- */
+  /* ---------- CTA click tracking ---------- */
   function initTracking() {
     window.dataLayer = window.dataLayer || [];
     document.addEventListener('click', function (e) {
@@ -119,12 +132,14 @@
         event: 'cta_click',
         cta_location: cta.getAttribute('data-cta'),
         cta_destination: STEAM_URL,
+        hero_angle: heroAngle,
         conversion_goal: 'first_login'
       });
     });
   }
 
   function init() {
+    initHeroAngle();
     initNav();
     initAccordion();
     initFloatingBar();

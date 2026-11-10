@@ -1,316 +1,411 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ragnarok: The New World — Jouer gratuitement sur Steam</title>
-  <meta name="description" content="Ragnarok: The New World arrive sur Steam. 8 classes, boss MVP, Prontera, PvP et progression hors ligne. Installez gratuitement et lancez votre première connexion.">
+  <title>Ragnarok: The New World — Play Free on Steam</title>
+  <meta name="description" content="Ragnarok: The New World is out on Steam. Open-world Midgard, 8 classes including the new Druid, MVP mounts, guild battles and offline progression. Free to play on PC.">
   <meta name="theme-color" content="#0B0C10">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Ragnarok: The New World — Jouer gratuitement sur Steam">
-  <meta property="og:description" content="Rejoignez Midgard : 8 classes, boss MVP, PvP et cross-play. Gratuit sur Steam.">
-  <meta property="og:image" content="assets/images/hero-artwork.webp">
+  <meta property="og:title" content="Midgard Awaits. Return to the Open World, Free on PC.">
+  <meta property="og:description" content="8 classes, MVP mounts, guild battles and offline progression. Play free on Steam.">
+  <meta property="og:image" content="assets/images/hero-key-art.webp">
   <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
-  <link rel="preload" as="image" type="image/webp" href="assets/images/hero-artwork.webp" imagesrcset="assets/images/hero-artwork.webp 1200w, assets/images/hero-artwork-2x.webp 2400w" imagesizes="(max-width: 880px) 100vw, 560px">
+  <link rel="preload" as="image" type="image/webp" href="assets/images/hero-key-art.webp" imagesrcset="assets/images/hero-key-art-960.webp 960w, assets/images/hero-key-art.webp 1920w" imagesizes="100vw">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">Aller au contenu principal</a>
+  <a class="skip-link" href="#main">Skip to main content</a>
 
   <!-- ============ HEADER ============ -->
   <header class="site-header" id="top">
     <div class="container header-inner">
-      <a class="brand" href="#top" aria-label="Ragnarok: The New World — retour en haut">
+      <a class="brand" href="#top" aria-label="Ragnarok: The New World — back to top">
         <img src="assets/images/logo.svg" alt="" width="44" height="44">
         <span class="brand-name">Ragnarok<span class="brand-sub">The New World</span></span>
       </a>
 
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Ouvrir le menu">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
         <span class="nav-toggle-bar" aria-hidden="true"></span>
         <span class="nav-toggle-bar" aria-hidden="true"></span>
         <span class="nav-toggle-bar" aria-hidden="true"></span>
       </button>
 
-      <nav class="primary-nav" id="primary-nav" aria-label="Navigation principale">
+      <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
         <ul>
-          <li><a href="#features">Le jeu</a></li>
+          <li><a href="#world">World</a></li>
           <li><a href="#classes">Classes</a></li>
-          <li><a href="#comfort">Confort</a></li>
-          <li><a href="#steps">Démarrer</a></li>
+          <li><a href="#offline">Offline Grind</a></li>
+          <li><a href="#group">Group Play</a></li>
+          <li><a href="#steps">Get Started</a></li>
           <li><a href="#faq">FAQ</a></li>
         </ul>
-        <a class="btn btn-primary btn-sm" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="header">Jouer gratuitement sur Steam</a>
+        <a class="btn btn-primary btn-sm" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="header">Play Free on Steam</a>
       </nav>
     </div>
   </header>
 
   <main id="main">
-    <!-- ============ HERO ============ -->
+    <!-- ============ 1. HERO ============ -->
     <section class="hero" id="hero" aria-labelledby="hero-title">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow"><span class="pulse" aria-hidden="true"></span> Disponible sur Steam · Free-to-play</p>
-          <h1 id="hero-title">Midgard renaît.<br><span class="text-gradient">Votre légende commence maintenant.</span></h1>
-          <p class="lead">Ragnarok: The New World débarque sur PC. Choisissez parmi 8 classes, affrontez les boss MVP et retrouvez vos amis à Prontera — gratuitement.</p>
-          <div class="cta-group">
-            <a class="btn btn-primary btn-lg" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="hero">
-              Jouer gratuitement sur Steam
-              <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-            <a class="btn btn-ghost" href="#steps">Comment démarrer ?</a>
-          </div>
-          <ul class="trust-row" aria-label="Points clés">
-            <li><strong>100 %</strong> gratuit</li>
-            <li><strong>8</strong> classes</li>
-            <li><strong>346K</strong> joueurs sur Discord</li>
-          </ul>
+      <picture class="hero-bg">
+        <img src="assets/images/hero-key-art.webp" srcset="assets/images/hero-key-art-960.webp 960w, assets/images/hero-key-art.webp 1920w" sizes="100vw" alt="A party of adventurers gathers on an airship deck above Midgard" width="1920" height="1080" fetchpriority="high" decoding="async">
+      </picture>
+      <div class="container hero-content">
+        <p class="eyebrow"><span class="pulse-dot" aria-hidden="true"></span> Out now on Steam · Free-to-play</p>
+        <h1 id="hero-title" data-angle-a="Midgard Awaits. Return to the Open World, Free on PC." data-angle-b="Midgard Is Back — And Your Character Progresses Even While You Work.">Midgard Awaits. Return to the Open World, Free on PC.</h1>
+        <p class="lead">The first open-world Ragnarok. Pick from 8 classes including the all-new Druid, tame MVP bosses as mounts and keep growing stronger while you're offline.</p>
+        <div class="cta-block">
+          <a class="btn btn-primary btn-lg" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="hero">
+            Play Free on Steam
+            <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <p class="cta-micro">Free · 12 GB RAM · In-Game Gravity Account</p>
         </div>
-        <div class="hero-visual">
-          <img src="assets/images/hero-artwork.webp" srcset="assets/images/hero-artwork.webp 1200w, assets/images/hero-artwork-2x.webp 2400w" sizes="(max-width: 880px) 100vw, 560px" alt="Un héros de Midgard brandit son épée runique, entouré d'une aura de feu, devant la cité" width="1200" height="900" fetchpriority="high" decoding="async">
-        </div>
+        <ul class="trust-row" aria-label="Key facts">
+          <li><strong>8</strong> classes</li>
+          <li><strong>120</strong> FPS on PC</li>
+          <li><strong>346K</strong> on Discord</li>
+        </ul>
       </div>
     </section>
 
-    <!-- ============ FEATURES ============ -->
-    <section class="section" id="features" aria-labelledby="features-title">
+    <!-- ============ 2. WORLD & CONTENT ============ -->
+    <section class="section" id="world" aria-labelledby="world-title">
       <div class="container">
         <header class="section-head">
-          <p class="eyebrow">Le MMORPG culte, repensé pour PC</p>
-          <h2 id="features-title">Tout ce qui a fait la légende de Ragnarok</h2>
-          <p class="section-lead">Des retrouvailles pour les vétérans, une porte d'entrée idéale pour les nouveaux aventuriers.</p>
+          <p class="eyebrow">The first open-world RO</p>
+          <h2 id="world-title">Everything you loved, now unimaginably vast</h2>
+          <p class="section-lead">Every scene is a grand view and every step is an adventure.</p>
         </header>
 
-        <div class="card-grid card-grid-4">
-          <article class="card">
-            <img src="assets/images/icon-class-druid.svg" alt="" width="64" height="64" loading="lazy">
-            <h3>8 classes, dont le Druide</h3>
-            <p>Tank, soigneur ou DPS : trouvez votre style et faites évoluer votre héros à votre rythme.</p>
+        <div class="media-grid">
+          <article class="media-card">
+            <img src="assets/images/shot-prontera.webp" alt="Crowds of players gathered in the streets of Prontera" width="960" height="540" loading="lazy" decoding="async">
+            <div class="media-body">
+              <h3>Prontera, alive again</h3>
+              <p>Trade freely, recruit your guild and meet thousands of adventurers in the capital.</p>
+            </div>
           </article>
-          <article class="card">
-            <img src="assets/images/icon-mvp.svg" alt="" width="64" height="64" loading="lazy">
-            <h3>Boss MVP</h3>
-            <p>Unissez vos forces pour terrasser les boss mythiques et décrocher un butin rare.</p>
+          <article class="media-card">
+            <img src="assets/images/shot-mvp-boss.webp" alt="A party fights a giant MVP boss in a glowing arena" width="960" height="540" loading="lazy" decoding="async">
+            <div class="media-body">
+              <h3>MVP Mounts</h3>
+              <p>Defeat an MVP boss and make it your exclusive mount. Ride the strongest in style.</p>
+            </div>
           </article>
-          <article class="card">
-            <img src="assets/images/icon-prontera.svg" alt="" width="64" height="64" loading="lazy">
-            <h3>Prontera vivante</h3>
-            <p>Commercez, recrutez votre guilde et retrouvez l'ambiance unique de la capitale.</p>
+          <article class="media-card">
+            <img src="assets/images/shot-guild-battle.webp" alt="Large-scale guild battle in front of a castle" width="960" height="540" loading="lazy" decoding="async">
+            <div class="media-body">
+              <h3>Guild battles &amp; open-world PvP</h3>
+              <p>Rally your guildmates, siege castles and fight with zero stutter at up to 120 FPS.</p>
+            </div>
           </article>
-          <article class="card">
-            <img src="assets/images/icon-pvp.svg" alt="" width="64" height="64" loading="lazy">
-            <h3>PvP &amp; guerres de guilde</h3>
-            <p>Mesurez-vous aux meilleurs joueurs en arène et menez votre guilde à la victoire.</p>
+          <article class="media-card">
+            <img src="assets/images/shot-open-world.webp" alt="Adventurers climbing rooftops, swimming and floating in bubbles" width="960" height="540" loading="lazy" decoding="async">
+            <div class="media-body">
+              <h3>Climb, swim, explore</h3>
+              <p>A seamless Midgard to roam on PC, tablet and phone, with your progress synced.</p>
+            </div>
           </article>
         </div>
 
-        <div class="section-cta">
-          <a class="btn btn-primary" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="features">Jouer gratuitement sur Steam</a>
+        <div class="section-cta cta-block">
+          <a class="btn btn-primary" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="world">Play Free on Steam</a>
+          <p class="cta-micro">Free · 12 GB RAM · In-Game Gravity Account</p>
         </div>
       </div>
     </section>
 
-    <!-- ============ CLASSES ============ -->
+    <!-- ============ 3. CLASSES ============ -->
     <section class="section section-alt" id="classes" aria-labelledby="classes-title">
       <div class="container">
         <header class="section-head">
-          <p class="eyebrow">Choisissez votre voie</p>
-          <h2 id="classes-title">8 classes, des centaines de builds</h2>
-          <p class="section-lead">Changez de spécialisation quand vous voulez : aucune erreur n'est définitive.</p>
+          <p class="eyebrow">Choose your path</p>
+          <h2 id="classes-title">8 classes from launch. Change jobs anytime.</h2>
+          <p class="section-lead">Tank today, healer tomorrow: master every class with a single character. Skill resets are always free.</p>
         </header>
+
+        <div class="split">
+          <article class="druid-card">
+            <span class="tag">New class</span>
+            <h3>The Druid debuts</h3>
+            <p>One class, three playstyles. Switch forms at any time:</p>
+            <ul class="check-list">
+              <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Werewolf</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Wereraptor</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Human Arcanist</li>
+            </ul>
+          </article>
+          <figure class="media-card media-wide">
+            <img src="assets/images/shot-costumes.webp" alt="A line-up of adventurers wearing different outfits" width="960" height="540" loading="lazy" decoding="async">
+            <figcaption class="media-body">
+              <h3>100+ looks to customize</h3>
+              <p>Dye fabrics, style haircuts and switch from dashing Knight to charming Bard.</p>
+            </figcaption>
+          </figure>
+        </div>
 
         <ul class="class-grid" role="list">
-          <li class="class-chip"><span class="rune" aria-hidden="true">ᛟ</span><span><strong>Épéiste</strong><small>Tank · Mêlée</small></span></li>
-          <li class="class-chip"><span class="rune" aria-hidden="true">ᚨ</span><span><strong>Mage</strong><small>DPS · Magie</small></span></li>
-          <li class="class-chip"><span class="rune" aria-hidden="true">ᛉ</span><span><strong>Archer</strong><small>DPS · Distance</small></span></li>
-          <li class="class-chip"><span class="rune" aria-hidden="true">ᛒ</span><span><strong>Acolyte</strong><small>Soin · Soutien</small></span></li>
-          <li class="class-chip"><span class="rune" aria-hidden="true">ᚦ</span><span><strong>Voleur</strong><small>DPS · Agilité</small></span></li>
-          <li class="class-chip"><span class="rune" aria-hidden="true">ᚠ</span><span><strong>Marchand</strong><small>Hybride · Économie</small></span></li>
-          <li class="class-chip class-chip-new"><span class="rune" aria-hidden="true">ᛃ</span><span><strong>Druide</strong><small>Nature · Métamorphose</small></span><em class="tag">Nouveau</em></li>
-          <li class="class-chip"><span class="rune" aria-hidden="true">ᛊ</span><span><strong>Ninja</strong><small>Burst · Furtivité</small></span></li>
+          <li class="class-chip"><span class="rune" aria-hidden="true">ᛟ</span><span><strong>Swordman</strong><small>Tank · Melee</small></span></li>
+          <li class="class-chip"><span class="rune" aria-hidden="true">ᚨ</span><span><strong>Mage</strong><small>DPS · Magic</small></span></li>
+          <li class="class-chip"><span class="rune" aria-hidden="true">ᛉ</span><span><strong>Archer</strong><small>DPS · Ranged</small></span></li>
+          <li class="class-chip"><span class="rune" aria-hidden="true">ᛒ</span><span><strong>Acolyte</strong><small>Healer · Support</small></span></li>
+          <li class="class-chip"><span class="rune" aria-hidden="true">ᚦ</span><span><strong>Thief</strong><small>DPS · Agility</small></span></li>
+          <li class="class-chip"><span class="rune" aria-hidden="true">ᚠ</span><span><strong>Merchant</strong><small>Hybrid · Economy</small></span></li>
+          <li class="class-chip class-chip-new"><span class="rune" aria-hidden="true">ᛃ</span><span><strong>Druid</strong><small>Shapeshifter · Nature</small></span></li>
+          <li class="class-chip"><span class="rune" aria-hidden="true">✦</span><span><strong>Your build</strong><small>No meta: burst, summon, control</small></span></li>
         </ul>
 
-        <div class="section-cta">
-          <a class="btn btn-primary" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="classes">Jouer gratuitement sur Steam</a>
+        <div class="section-cta cta-block">
+          <a class="btn btn-primary" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="classes">Play Free on Steam</a>
+          <p class="cta-micro">Free · 12 GB RAM · In-Game Gravity Account</p>
         </div>
       </div>
     </section>
 
-    <!-- ============ COMFORT ============ -->
-    <section class="section" id="comfort" aria-labelledby="comfort-title">
+    <!-- ============ 4. OFFLINE GRIND ============ -->
+    <section class="section" id="offline" aria-labelledby="offline-title">
       <div class="container">
-        <header class="section-head">
-          <p class="eyebrow">Pensé pour votre temps</p>
-          <h2 id="comfort-title">Progressez, même quand vous êtes absent</h2>
-        </header>
-
-        <div class="card-grid card-grid-4">
-          <article class="card card-compact">
-            <img src="assets/images/icon-offline.svg" alt="" width="64" height="64" loading="lazy">
-            <h3>Gains hors ligne</h3>
-            <p>Votre héros continue d'accumuler de l'expérience pendant que vous vivez votre vie.</p>
-          </article>
-          <article class="card card-compact">
-            <img src="assets/images/icon-reset.svg" alt="" width="64" height="64" loading="lazy">
-            <h3>Reset de compétences</h3>
-            <p>Testez de nouveaux builds librement, sans recommencer votre personnage.</p>
-          </article>
-          <article class="card card-compact">
-            <img src="assets/images/icon-refine.svg" alt="" width="64" height="64" loading="lazy">
-            <h3>Raffinement simplifié</h3>
-            <p>Améliorez votre équipement avec un système plus clair et plus juste.</p>
-          </article>
-          <article class="card card-compact">
-            <img src="assets/images/icon-crossplay.svg" alt="" width="64" height="64" loading="lazy">
-            <h3>Cross-play PC / mobile</h3>
-            <p>Une seule progression, sur grand écran comme en déplacement.</p>
-          </article>
+        <div class="split split-reverse">
+          <div>
+            <p class="eyebrow">Grindless gaming</p>
+            <h2 id="offline-title" class="split-title">Your character keeps hunting while you sleep</h2>
+            <p class="section-lead">While you work, resources quietly pile up. Log back in stronger than you left.</p>
+            <ul class="comfort-list">
+              <li>
+                <img src="assets/images/icon-offline.svg" alt="" width="48" height="48" loading="lazy">
+                <span><strong>Offline earnings</strong>Idle time automatically turns into resources.</span>
+              </li>
+              <li>
+                <img src="assets/images/icon-reset.svg" alt="" width="48" height="48" loading="lazy">
+                <span><strong>Free stat resets, forever</strong>Plus free resource retrieval. Never fear a wrong build.</span>
+              </li>
+              <li>
+                <img src="assets/images/icon-refine.svg" alt="" width="48" height="48" loading="lazy">
+                <span><strong>Safe refining to +15</strong>No break and no level loss on failure.</span>
+              </li>
+              <li>
+                <img src="assets/images/icon-crossplay.svg" alt="" width="48" height="48" loading="lazy">
+                <span><strong>Phone, tablet &amp; PC</strong>One character with progress synced across all three.</span>
+              </li>
+            </ul>
+          </div>
+          <figure class="media-card media-wide">
+            <img src="assets/images/shot-offline-grind.webp" alt="A character auto-hunting a field full of Porings" width="960" height="540" loading="lazy" decoding="async">
+          </figure>
         </div>
 
-        <div class="section-cta">
-          <a class="btn btn-primary" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="comfort">Jouer gratuitement sur Steam</a>
+        <div class="section-cta cta-block">
+          <a class="btn btn-primary" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="offline">Play Free on Steam</a>
+          <p class="cta-micro">Free · 12 GB RAM · In-Game Gravity Account</p>
         </div>
       </div>
     </section>
 
-    <!-- ============ STEPS (onboarding → first login) ============ -->
-    <section class="section section-alt" id="steps" aria-labelledby="steps-title">
+    <!-- ============ 5. GROUP PLAY ============ -->
+    <section class="section section-alt" id="group" aria-labelledby="group-title">
+      <div class="container">
+        <div class="split">
+          <figure class="media-card media-wide">
+            <img src="assets/images/shot-group-play.webp" alt="Friends gathered together at a flower-filled celebration in Midgard" width="960" height="540" loading="lazy" decoding="async">
+          </figure>
+          <div>
+            <p class="eyebrow">Party up &amp; synergize</p>
+            <h2 id="group-title" class="split-title">Struggling solo? Find your crew.</h2>
+            <p class="section-lead">Class synergy and skill combos turn even the toughest boss into loot.</p>
+            <ul class="check-list check-list-lg">
+              <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Tanks hold the boss, damage dealers burst, healers keep everyone alive</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Guild raids, castle sieges and MVP hunts</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Free trading with other players</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section-cta cta-block">
+          <a class="btn btn-primary" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="group">Play Free on Steam</a>
+          <p class="cta-micro">Free · 12 GB RAM · In-Game Gravity Account</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 6. 4 STEPS → FIRST LOGIN ============ -->
+    <section class="section" id="steps" aria-labelledby="steps-title">
       <div class="container">
         <header class="section-head">
-          <p class="eyebrow">Moins de 5 minutes</p>
-          <h2 id="steps-title">De Steam à votre première connexion</h2>
-          <p class="section-lead">Quatre étapes simples pour entrer à Midgard.</p>
+          <p class="eyebrow">From click to Prontera</p>
+          <h2 id="steps-title">4 steps to your first login</h2>
+          <p class="section-lead">Free to download. All you need is a Steam account.</p>
         </header>
 
         <ol class="steps" role="list">
           <li class="step">
-            <img src="assets/images/step-1.svg" alt="" width="96" height="96" loading="lazy">
-            <h3><span class="visually-hidden">Étape 1 : </span>Ouvrez la page Steam</h3>
-            <p>Cliquez sur « Jouer gratuitement sur Steam ».</p>
+            <div class="step-media">
+              <img src="assets/images/step-1.webp" alt="" width="480" height="270" loading="lazy" decoding="async">
+              <span class="step-num" aria-hidden="true">1</span>
+            </div>
+            <h3><span class="visually-hidden">Step 1: </span>Open the Steam page</h3>
+            <p>Click “Play Free on Steam”, then “Play Game”.</p>
           </li>
           <li class="step">
-            <img src="assets/images/step-2.svg" alt="" width="96" height="96" loading="lazy">
-            <h3><span class="visually-hidden">Étape 2 : </span>Installez le jeu</h3>
-            <p>Ajoutez-le à votre bibliothèque et lancez le téléchargement.</p>
+            <div class="step-media">
+              <img src="assets/images/step-2.webp" alt="" width="480" height="270" loading="lazy" decoding="async">
+              <span class="step-num" aria-hidden="true">2</span>
+            </div>
+            <h3><span class="visually-hidden">Step 2: </span>Install the game</h3>
+            <p>About 30 GB of storage. Steam handles the download.</p>
           </li>
           <li class="step">
-            <img src="assets/images/step-3.svg" alt="" width="96" height="96" loading="lazy">
-            <h3><span class="visually-hidden">Étape 3 : </span>Créez votre héros</h3>
-            <p>Choisissez votre serveur, votre classe et votre apparence.</p>
+            <div class="step-media">
+              <img src="assets/images/step-3.webp" alt="" width="480" height="270" loading="lazy" decoding="async">
+              <span class="step-num" aria-hidden="true">3</span>
+            </div>
+            <h3><span class="visually-hidden">Step 3: </span>Create your Gravity account</h3>
+            <p>Sign up in-game in seconds, then design your hero.</p>
           </li>
           <li class="step step-final">
-            <img src="assets/images/step-4.svg" alt="" width="96" height="96" loading="lazy">
-            <h3><span class="visually-hidden">Étape 4 : </span>Connectez-vous</h3>
-            <p>Votre première connexion vous ouvre les portes de Prontera.</p>
+            <div class="step-media">
+              <img src="assets/images/step-4.webp" alt="" width="480" height="270" loading="lazy" decoding="async">
+              <span class="step-num" aria-hidden="true">4</span>
+            </div>
+            <h3><span class="visually-hidden">Step 4: </span>Log in &amp; enter Midgard</h3>
+            <p>Your first login drops you straight into Prontera.</p>
           </li>
         </ol>
 
-        <div class="section-cta">
-          <a class="btn btn-primary btn-lg" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="steps">Jouer gratuitement sur Steam</a>
+        <div class="section-cta cta-block">
+          <a class="btn btn-primary btn-lg" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="steps">Play Free on Steam</a>
+          <p class="cta-micro">Free · 12 GB RAM · In-Game Gravity Account</p>
         </div>
       </div>
     </section>
 
-    <!-- ============ COMMUNITY ============ -->
-    <section class="section" id="community" aria-labelledby="community-title">
+    <!-- ============ 7. SOCIAL PROOF ============ -->
+    <section class="section section-alt" id="community" aria-labelledby="community-title">
       <div class="container">
-        <div class="community card">
-          <img src="assets/images/badge-discord.svg" alt="Communauté Discord : 346K membres" width="280" height="96" loading="lazy">
+        <div class="community">
+          <img src="assets/images/badge-discord.svg" alt="Discord community: 346K members" width="280" height="96" loading="lazy">
           <div class="community-copy">
-            <h2 id="community-title">Vous ne jouerez jamais seul</h2>
-            <p>346K aventuriers partagent déjà builds, astuces et sessions de groupe. Trouvez votre guilde dès votre première connexion.</p>
+            <h2 id="community-title">You'll never adventure alone</h2>
+            <p>346K adventurers already share builds, tips and party invites on Discord. Find your guild from your very first login.</p>
           </div>
-          <a class="btn btn-primary" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="community">Jouer gratuitement sur Steam</a>
+          <ul class="stat-row" aria-label="Community and game stats">
+            <li><strong>346K</strong><span>Discord members</span></li>
+            <li><strong>8</strong><span>classes at launch</span></li>
+            <li><strong>3</strong><span>devices, one save</span></li>
+            <li><strong>120</strong><span>FPS on PC</span></li>
+          </ul>
+          <div class="cta-block">
+            <a class="btn btn-primary" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="community">Play Free on Steam</a>
+            <p class="cta-micro">Free · 12 GB RAM · In-Game Gravity Account</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ FAQ ============ -->
-    <section class="section section-alt" id="faq" aria-labelledby="faq-title">
+    <!-- ============ 8. FAQ ============ -->
+    <section class="section" id="faq" aria-labelledby="faq-title">
       <div class="container container-narrow">
         <header class="section-head">
-          <p class="eyebrow">Questions fréquentes</p>
-          <h2 id="faq-title">Tout savoir avant de vous lancer</h2>
+          <p class="eyebrow">FAQ</p>
+          <h2 id="faq-title">Before you jump in</h2>
         </header>
 
         <div class="accordion">
           <div class="accordion-item">
             <h3 class="accordion-heading">
               <button class="accordion-trigger" type="button" aria-expanded="false" aria-controls="faq-1" id="faq-1-btn">
-                Le jeu est-il vraiment gratuit ?
+                Is the game really free?
                 <span class="accordion-icon" aria-hidden="true"></span>
               </button>
             </h3>
             <div class="accordion-panel" id="faq-1" role="region" aria-labelledby="faq-1-btn" hidden>
-              <p>Oui. Ragnarok: The New World est free-to-play : le téléchargement sur Steam et l'accès au jeu sont gratuits.</p>
+              <p>Yes. Ragnarok: The New World is free-to-play. Downloading it on Steam and playing cost nothing.</p>
             </div>
           </div>
           <div class="accordion-item">
             <h3 class="accordion-heading">
               <button class="accordion-trigger" type="button" aria-expanded="false" aria-controls="faq-2" id="faq-2-btn">
-                Ai-je besoin d'un compte Steam ?
+                What do I need to run it on PC?
                 <span class="accordion-icon" aria-hidden="true"></span>
               </button>
             </h3>
             <div class="accordion-panel" id="faq-2" role="region" aria-labelledby="faq-2-btn" hidden>
-              <p>Oui, un compte Steam gratuit suffit. Il permet d'installer le jeu et de lancer votre première connexion en quelques clics.</p>
+              <p>A Windows PC with at least 12 GB of RAM, about 30 GB of free storage and a broadband internet connection.</p>
             </div>
           </div>
           <div class="accordion-item">
             <h3 class="accordion-heading">
               <button class="accordion-trigger" type="button" aria-expanded="false" aria-controls="faq-3" id="faq-3-btn">
-                Je n'ai jamais joué à Ragnarok, est-ce pour moi ?
+                Which accounts do I need?
                 <span class="accordion-icon" aria-hidden="true"></span>
               </button>
             </h3>
             <div class="accordion-panel" id="faq-3" role="region" aria-labelledby="faq-3-btn" hidden>
-              <p>Absolument. Le tutoriel vous guide pas à pas, le reset de compétences permet d'expérimenter sans risque et la communauté est très accueillante.</p>
+              <p>A free Steam account to install the game, and a Gravity account that you create in-game on your first launch.</p>
             </div>
           </div>
           <div class="accordion-item">
             <h3 class="accordion-heading">
               <button class="accordion-trigger" type="button" aria-expanded="false" aria-controls="faq-4" id="faq-4-btn">
-                Puis-je garder ma progression entre PC et mobile ?
+                I've never played Ragnarok. Is it for me?
                 <span class="accordion-icon" aria-hidden="true"></span>
               </button>
             </h3>
             <div class="accordion-panel" id="faq-4" role="region" aria-labelledby="faq-4-btn" hidden>
-              <p>Oui, grâce au cross-play, vous retrouvez le même héros et le même inventaire sur vos différents appareils.</p>
+              <p>Absolutely. Free skill and stat resets mean you can never pick the wrong class, and offline earnings let you progress at your own pace.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-heading">
+              <button class="accordion-trigger" type="button" aria-expanded="false" aria-controls="faq-5" id="faq-5-btn">
+                Can I keep my progress between PC and mobile?
+                <span class="accordion-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion-panel" id="faq-5" role="region" aria-labelledby="faq-5-btn" hidden>
+              <p>Yes. Switch between phone, tablet and PC at any time with your progress fully synced.</p>
             </div>
           </div>
         </div>
 
-        <div class="section-cta">
-          <a class="btn btn-primary" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="faq">Jouer gratuitement sur Steam</a>
+        <div class="section-cta cta-block">
+          <a class="btn btn-primary" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="faq">Play Free on Steam</a>
+          <p class="cta-micro">Free · 12 GB RAM · In-Game Gravity Account</p>
         </div>
       </div>
     </section>
 
-    <!-- ============ FINAL CTA ============ -->
+    <!-- ============ 9. FINAL CTA ============ -->
     <section class="final-cta" id="final" aria-labelledby="final-title">
+      <img class="final-bg" src="assets/images/final-bg.webp" alt="" width="1600" height="900" loading="lazy" decoding="async">
       <div class="container final-inner">
-        <img src="assets/images/logo.svg" alt="" width="120" height="120" loading="lazy">
-        <h2 id="final-title">Midgard vous attend.</h2>
-        <p class="lead">Installez gratuitement et lancez votre première connexion dès aujourd'hui.</p>
-        <a class="btn btn-primary btn-lg" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="final">Jouer gratuitement sur Steam</a>
+        <img src="assets/images/logo.svg" alt="" width="96" height="96" loading="lazy">
+        <h2 id="final-title">Midgard is waiting for you.</h2>
+        <p class="lead">Install for free and make your first login today.</p>
+        <div class="cta-block">
+          <a class="btn btn-primary btn-lg" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="final">Play Free on Steam</a>
+          <p class="cta-micro">Free · 12 GB RAM · In-Game Gravity Account</p>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- ============ FOOTER ============ -->
+  <!-- ============ 10. FOOTER ============ -->
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>Ragnarok: The New World — page de présentation réalisée dans le cadre du TAF 2 (Groupe 109).</p>
-      <p>Les marques citées appartiennent à leurs propriétaires respectifs.</p>
-      <a href="#top" class="back-top">Retour en haut</a>
+      <p>Unofficial student project — TAF 2, Group 109. Not affiliated with or endorsed by Gravity.</p>
+      <p>Game screenshots © Gravity Game Vision Limited, from the official Steam store page. All trademarks belong to their respective owners.</p>
+      <a href="#top" class="back-top">Back to top</a>
     </div>
   </footer>
 
   <!-- ============ FLOATING CTA BAR ============ -->
-  <aside class="floating-bar" id="floating-bar" aria-label="Accès rapide au jeu" aria-hidden="true">
+  <aside class="floating-bar" id="floating-bar" aria-label="Quick access to the game" aria-hidden="true">
     <div class="floating-inner">
       <img src="assets/images/logo.svg" alt="" width="36" height="36">
-      <p class="floating-text"><strong>Ragnarok: The New World</strong><span>Gratuit · 8 classes · Cross-play</span></p>
-      <a class="btn btn-primary btn-sm" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="floating-bar" tabindex="-1">Jouer gratuitement sur Steam</a>
+      <p class="floating-text"><strong>Ragnarok: The New World</strong><span>Free · 12 GB RAM · In-Game Gravity Account</span></p>
+      <a class="btn btn-primary btn-sm" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="floating-bar" tabindex="-1">Play Free on Steam</a>
     </div>
   </aside>
 
