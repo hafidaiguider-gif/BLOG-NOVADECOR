@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400" role="img" aria-labelledby="t">
+  <title id="t">Original illustration: the Druid's three forms, werewolf, wereraptor and arcanist</title>
+  <defs>
+    <linearGradient id="flame" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF6B00"/><stop offset="1" stop-color="#FF3D00"/></linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE8D6"/><stop offset="1" stop-color="#F4A261"/></linearGradient>
+    <radialGradient id="halo" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FF6B00" stop-opacity=".55"/><stop offset="1" stop-color="#FF6B00" stop-opacity="0"/></radialGradient>
+<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16161E"/><stop offset="1" stop-color="#24182C"/></linearGradient>
+  </defs>
+<rect width="640" height="400" fill="url(#bg)"/>
+  <circle cx="612" cy="190" r="0.7" fill="#FFE8D6" opacity="0.35"/>
+  <circle cx="535" cy="147" r="1.4" fill="#FFE8D6" opacity="0.48"/>
+  <circle cx="388" cy="121" r="1.3" fill="#FFE8D6" opacity="0.40"/>
+  <circle cx="276" cy="79" r="1.5" fill="#FFE8D6" opacity="0.90"/>
+  <circle cx="608" cy="109" r="1.1" fill="#FFE8D6" opacity="0.46"/>
+  <circle cx="23" cy="5" r="1.2" fill="#FFE8D6" opacity="0.49"/>
+  <circle cx="243" cy="178" r="1.2" fill="#FFE8D6" opacity="0.64"/>
+  <circle cx="151" cy="5" r="1.0" fill="#FFE8D6" opacity="0.38"/>
+  <circle cx="327" cy="200" r="1.4" fill="#FFE8D6" opacity="0.41"/>
+  <circle cx="572" cy="159" r="1.5" fill="#FFE8D6" opacity="0.84"/>
+  <circle cx="488" cy="158" r="1.0" fill="#FFE8D6" opacity="0.89"/>
+  <circle cx="616" cy="32" r="1.5" fill="#FFE8D6" opacity="0.73"/>
+  <circle cx="295" cy="106" r="1.2" fill="#FFE8D6" opacity="0.85"/>
+  <circle cx="321" cy="166" r="1.0" fill="#FFE8D6" opacity="0.83"/>
+  <circle cx="576" cy="92" r="1.3" fill="#FFE8D6" opacity="0.85"/>
+  <circle cx="463" cy="97" r="0.9" fill="#FFE8D6" opacity="0.49"/>
+  <circle cx="448" cy="33" r="1.7" fill="#FFE8D6" opacity="0.46"/>
+  <circle cx="583" cy="62" r="1.7" fill="#FFE8D6" opacity="0.72"/>
+  <circle cx="323" cy="104" r="1.4" fill="#FFE8D6" opacity="0.65"/>
+  <circle cx="200" cy="42" r="1.2" fill="#FFE8D6" opacity="0.86"/>
+  <circle cx="399" cy="15" r="1.6" fill="#FFE8D6" opacity="0.74"/>
+  <circle cx="581" cy="38" r="1.5" fill="#FFE8D6" opacity="0.34"/>
+  <circle cx="418" cy="55" r="0.9" fill="#FFE8D6" opacity="0.83"/>
+  <circle cx="68" cy="104" r="1.6" fill="#FFE8D6" opacity="0.45"/>
+  <ellipse cx="320" cy="350" rx="300" ry="34" fill="#0D0D11" opacity=".6"/>
+  <g>
+    <circle cx="140" cy="200" r="92" fill="#1D1D28" stroke="url(#flame)" stroke-width="3"/>
+    <path d="M90 250 L104 176 L92 132 L124 160 L156 160 L188 132 L176 176 L190 250 L160 236 L140 262 L120 236 Z" fill="#3A3150"/>
+    <circle cx="122" cy="196" r="6" fill="#FF6B00"/><circle cx="158" cy="196" r="6" fill="#FF6B00"/>
+    <path d="M128 228 L140 240 L152 228" fill="none" stroke="#FFE8D6" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g>
+    <circle cx="320" cy="200" r="92" fill="#1D1D28" stroke="url(#flame)" stroke-width="3"/>
+    <path d="M250 236 C262 190 300 168 342 170 L384 150 L376 176 L396 184 L372 196 C370 220 352 238 330 244 L340 270 L322 270 L312 248 L292 250 L296 274 L278 274 L276 250 C262 250 254 244 250 236 Z" fill="#3A3150"/>
+    <circle cx="366" cy="172" r="4" fill="#FF6B00"/>
+    <path d="M250 236 C232 232 222 220 216 204 C232 214 244 218 256 220" fill="#3A3150"/>
+  </g>
+  <g>
+    <circle cx="500" cy="200" r="92" fill="#1D1D28" stroke="url(#flame)" stroke-width="3"/>
+    <g transform="translate(492 278) scale(0.78)"><path d="M-16 -62 L16 -62 L24 -6 L-24 -6 Z" fill="#2C2440"/><rect x="-11" y="-26" width="9" height="26" rx="4" fill="#3A3150"/><rect x="2" y="-26" width="9" height="26" rx="4" fill="#3A3150"/><path d="M-17 -64 Q0 -72 17 -64 L14 -22 L-14 -22 Z" fill="#3A3150"/><rect x="-14" y="-40" width="28" height="5" rx="2" fill="#F4A261"/><circle cx="0" cy="-86" r="22" fill="#3A3150"/><path d="M-22 -92 Q0 -116 22 -92 Q12 -100 0 -98 Q-12 -100 -22 -92 Z" fill="#F4A261"/><path d="M-26 -100 L26 -100 L4 -146 Z" fill="#F4A261"/><rect x="22" y="-118" width="5" height="118" rx="2" fill="#F4A261"/><circle cx="24.5" cy="-122" r="9" fill="url(#flame)"/></g>
+    <circle cx="512" cy="120" r="24" fill="url(#halo)"/>
+  </g>
+  <g fill="none" stroke="#F4A261" stroke-width="2" stroke-dasharray="3 8" opacity=".8"><path d="M234 200 h-4"/><path d="M232 186 Q240 200 232 214"/><path d="M412 186 Q420 200 412 214"/></g>
+</svg>
