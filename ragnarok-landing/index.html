@@ -11,19 +11,19 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Ragnarok: The New World — Play Free on Steam">
   <meta property="og:description" content="The first open-world Ragnarok on Windows PC. Free-to-play, 8 classes including Druid, SEA servers.">
-  <meta property="og:image" content="assets/images/og-image.webp">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
+  <meta property="og:image" content="assets/hero-bg.webp">
+  <meta property="og:image:width" content="1920">
+  <meta property="og:image:height" content="1080">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="icon" type="image/svg+xml" href="assets/icons/logo.svg">
+  <link rel="icon" href="data:,">
 
   <!-- Fonts: Cinzel (epic titles) + Plus Jakarta Sans (body). display=swap = text never blocked -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap">
 
-  <link rel="preload" as="image" type="image/webp" href="assets/images/hero-keyart.webp">
+  <link rel="preload" as="image" type="image/webp" href="assets/hero-bg.webp">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -33,8 +33,7 @@
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand">
-        <!-- LOGO: original emblem; swap for the official logo (see assets/README.md) -->
-        <img src="assets/icons/logo.svg" alt="" width="40" height="40">
+        <!-- LOGO: text wordmark. To use the official logo, add assets/logo.webp and an <img> here (see assets/README.md) -->
         <span class="brand-name">Ragnarok<span class="brand-sub">The New World</span></span>
       </div>
       <p class="license-badge"><span class="dot" aria-hidden="true"></span>Official License · Free-to-Play · Windows PC</p>
@@ -44,9 +43,9 @@
   <main id="main">
     <!-- ===================== 2. HERO (A/B: ?variant=a | ?variant=b, default B) ===================== -->
     <section class="hero" id="hero" aria-labelledby="hero-title">
-      <div class="hero-media" aria-hidden="true">
-        <!-- Placeholder key art: overwrite assets/images/hero-keyart.webp (1920x1080) -->
-        <img src="assets/images/hero-keyart.webp" alt="" width="1920" height="1080" fetchpriority="high" decoding="async">
+      <div class="hero-media media" aria-hidden="true">
+        <!-- Real in-game screenshot (Steam store page). Replace assets/hero-bg.webp, 1920x1080 -->
+        <img src="assets/hero-bg.webp" alt="" width="1920" height="1080" fetchpriority="high" decoding="async">
       </div>
       <div class="hero-aurora" aria-hidden="true"></div>
 
@@ -82,34 +81,44 @@
           <p class="lead">Everything you loved at the internet café, now seamless and on your own PC.</p>
         </header>
 
+        <!-- Real in-game screenshots from the Steam store page (16:9). Replace files in assets/ with the same names. -->
         <ul class="bento" role="list">
-          <li class="bento-card bento-xl">
-            <img src="assets/images/bento-classes-druid.webp" alt="Placeholder art of the Druid's three forms: werewolf, wereraptor and arcanist" width="1200" height="900" loading="lazy" decoding="async">
+          <li class="bento-card bento-xl media">
+            <img src="assets/feature-classes.webp" alt="In-game screenshot: adventurers of different classes in their outfits" width="1280" height="720" loading="lazy" decoding="async">
             <div class="bento-body">
               <span class="chip">8 classes</span>
               <h3>8 iconic classes, including the new Druid</h3>
               <p>The Druid switches forms on the fly: werewolf, wereraptor or human arcanist.</p>
             </div>
           </li>
-          <li class="bento-card">
-            <img src="assets/images/bento-mvp-mount.webp" alt="Placeholder art of a player riding a crowned MVP beast" width="800" height="600" loading="lazy" decoding="async">
-            <div class="bento-body"><h3>MVP hunts &amp; mounts</h3><p>Defeat an MVP, then ride it.</p></div>
+          <li class="bento-card media">
+            <img src="assets/feature-mvp.webp" alt="In-game screenshot: a party fighting a giant MVP boss" width="1280" height="720" loading="lazy" decoding="async">
+            <div class="bento-body"><h3>MVP hunts</h3><p>Defeat an MVP, then ride it as your mount.</p></div>
           </li>
-          <li class="bento-card">
-            <img src="assets/images/bento-prontera.webp" alt="Placeholder art of Prontera's castle and plaza" width="800" height="600" loading="lazy" decoding="async">
+          <li class="bento-card media">
+            <img src="assets/feature-prontera.webp" alt="In-game screenshot: crowds of players in Prontera" width="1280" height="720" loading="lazy" decoding="async">
             <div class="bento-body"><h3>Prontera, revisited</h3><p>The capital you remember, bigger.</p></div>
           </li>
-          <li class="bento-card">
-            <img src="assets/images/bento-trade-stalls.webp" alt="Placeholder art of player trading stalls" width="800" height="600" loading="lazy" decoding="async">
-            <div class="bento-body"><h3>Trade stalls</h3><p>Open shop and sell your loot.</p></div>
+          <li class="bento-card media">
+            <img src="assets/feature-mount.webp" alt="In-game screenshot: adventurers climbing rooftops, swimming and floating across the open world" width="1280" height="720" loading="lazy" decoding="async">
+            <div class="bento-body"><h3>Open world, your way</h3><p>Climb, swim, ride: one seamless Midgard.</p></div>
           </li>
-          <li class="bento-card">
-            <img src="assets/images/bento-wedding.webp" alt="Placeholder art of a wedding under a flower arch" width="800" height="600" loading="lazy" decoding="async">
-            <div class="bento-body"><h3>Weddings</h3><p>Yes, they're back.</p></div>
+          <li class="bento-card bento-text">
+            <div class="bento-body">
+              <h3>The classics are back</h3>
+              <ul class="mini-list" role="list">
+                <li><svg class="ico" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Trade stalls</li>
+                <li><svg class="ico" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Weddings</li>
+                <li><svg class="ico" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Costumes &amp; dyes</li>
+              </ul>
+            </div>
           </li>
-          <li class="bento-card">
-            <img src="assets/images/bento-costumes.webp" alt="Placeholder art of three adventurers in costumes" width="800" height="600" loading="lazy" decoding="async">
-            <div class="bento-body"><h3>Costumes</h3><p>Dress up, dye, show off.</p></div>
+          <li class="bento-card bento-text bento-accent">
+            <div class="bento-body">
+              <p class="big-num">8</p>
+              <h3>classes at launch</h3>
+              <p>Change jobs anytime with free resets.</p>
+            </div>
           </li>
         </ul>
       </div>
@@ -125,25 +134,25 @@
             <p class="lead">Simple facts that save you time.</p>
             <ul class="feature-list" role="list">
               <li class="glass feature">
-                <img src="assets/icons/icon-offline.svg" alt="" width="48" height="48" loading="lazy">
+                <span class="feature-ico" aria-hidden="true"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <div><h3>Offline Hunting</h3><p>Your character earns resources while you're logged out.</p></div>
               </li>
               <li class="glass feature">
-                <img src="assets/icons/icon-reset.svg" alt="" width="48" height="48" loading="lazy">
+                <span class="feature-ico" aria-hidden="true"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <div><h3>Free stat &amp; class reset</h3><p>Try another build or class without paying.</p></div>
               </li>
               <li class="glass feature">
-                <img src="assets/icons/icon-refine.svg" alt="" width="48" height="48" loading="lazy">
+                <span class="feature-ico" aria-hidden="true"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <div><h3>Refining without breaking</h3><p>A failed refine doesn't destroy your gear.</p></div>
               </li>
               <li class="glass feature">
-                <img src="assets/icons/icon-crossplay.svg" alt="" width="48" height="48" loading="lazy">
+                <span class="feature-ico" aria-hidden="true"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <div><h3>PC &amp; mobile cross-progression</h3><p>Same character, synced on both.</p></div>
               </li>
             </ul>
           </div>
-          <figure class="media-frame">
-            <img src="assets/images/busy-cross-progression.webp" alt="Placeholder art of the same character on a PC and a phone" width="1200" height="750" loading="lazy" decoding="async">
+          <figure class="media-frame media">
+            <img src="assets/feature-offline.webp" alt="In-game screenshot: a character auto-hunting a field of Porings" width="1280" height="720" loading="lazy" decoding="async">
           </figure>
         </div>
 
@@ -158,8 +167,8 @@
     <section class="section reveal" id="guild" aria-labelledby="guild-title">
       <div class="container">
         <div class="split split-reverse">
-          <figure class="media-frame">
-            <img src="assets/images/guild-party.webp" alt="Placeholder art of a party of four adventurers under a guild banner" width="1200" height="750" loading="lazy" decoding="async">
+          <figure class="media-frame media">
+            <img src="assets/feature-guild.webp" alt="In-game screenshot: a large guild battle in front of a castle" width="1280" height="720" loading="lazy" decoding="async">
           </figure>
           <div>
             <p class="eyebrow">Play with your guild</p>
@@ -184,7 +193,7 @@
         </header>
 
         <div class="player" data-player>
-          <div class="player-frame">
+          <div class="player-frame media">
             <video id="trailer" class="player-video" width="1280" height="720" preload="none" playsinline
                    poster="assets/video-poster.webp" aria-label="Ragnarok: The New World official trailer" aria-describedby="footage-note">
               <source src="assets/gameplay-trailer.mp4" type="video/mp4">
@@ -370,7 +379,6 @@ Character customization: outfits, hairstyles and looks.
   <div class="sticky-bar" role="region" aria-label="Play the game">
     <div class="container sticky-inner">
       <div class="sticky-text">
-        <img src="assets/icons/logo.svg" alt="" width="32" height="32">
         <p><strong>Ragnarok: The New World</strong><span>Free · Windows PC · SEA Servers</span></p>
       </div>
       <a class="cta cta-sm" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="sticky-bar"><span class="cta-label">Play Free on Steam</span></a>

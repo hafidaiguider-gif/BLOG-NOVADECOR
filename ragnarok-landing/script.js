@@ -342,7 +342,28 @@
     }, { passive: true });
   }
 
+  /* ---------- Media fallback: a missing screenshot/video shows a dark cinema frame, never a broken icon ---------- */
+  function markMissing(el) {
+    var frame = el.closest ? el.closest('.media') : null;
+    if (frame) frame.classList.add('is-missing');
+    if (el.tagName === 'IMG') el.style.visibility = 'hidden';
+  }
+  function initMediaFallback() {
+    document.addEventListener('error', function (e) {
+      var t = e.target;
+      if (!t || !t.tagName) return;
+      if (t.tagName === 'IMG') markMissing(t);
+      else if (t.tagName === 'SOURCE' && t.parentNode && t.parentNode.tagName === 'VIDEO') markMissing(t.parentNode);
+      else if (t.tagName === 'VIDEO') markMissing(t);
+    }, true);
+    // Images that already failed before this script ran
+    Array.prototype.forEach.call(document.querySelectorAll('.media img'), function (img) {
+      if (img.complete && img.naturalWidth === 0 && img.getAttribute('loading') !== 'lazy') markMissing(img);
+    });
+  }
+
   function init() {
+    initMediaFallback();
     initVariant();
     initCta();
     initFaq();
