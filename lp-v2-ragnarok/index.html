@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title data-i18n="meta.title"></title>
+  <meta name="description" data-i18n-content="meta.description" content="">
+  <meta name="theme-color" content="#0F0B08">
+  <meta property="og:type" content="website">
+  <meta property="og:title" data-i18n-content="meta.title" content="">
+  <meta property="og:description" data-i18n-content="meta.description" content="">
+  <meta property="og:image" content="assets/hero-bg.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:,">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Noto+Sans+Thai:wght@400;600;700;800&amp;display=swap">
+  <link rel="preload" as="image" type="image/webp" href="assets/hero-bg.webp">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <!-- Draft banner (visible only when config.mode === 'draft') -->
+  <div class="draft-banner" data-draft-only hidden><p data-i18n="draft.banner"></p></div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header">
+    <div class="wrap header-in">
+      <p class="brand"><span data-i18n="brand.name"></span><span class="brand-sub" data-i18n="brand.sub"></span></p>
+      <p class="badge"><span class="dot" aria-hidden="true"></span><span data-i18n="header.badge"></span></p>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ 1. HERO + STARTER PACK + GIFT CODE ============ -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-bg media" aria-hidden="true">
+        <img src="assets/hero-bg.webp" data-i18n-alt="alt.hero" alt="" width="1920" height="1080" fetchpriority="high" decoding="async">
+      </div>
+      <div class="wrap hero-in">
+        <p class="eyebrow" data-i18n="hero.eyebrow"></p>
+        <h1 id="hero-title" class="hero-title" data-i18n="hero.title"></h1>
+        <p class="hero-sub" data-i18n="hero.sub"></p>
+
+        <div class="pack card" data-block="pack">
+          <h2 class="pack-title" data-i18n="pack.title"></h2>
+          <ul class="items" role="list">
+            <li class="item" data-item="vip">
+              <span class="item-visual"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 9l1 2 2 .3-1.5 1.4.4 2.1-1.9-1-1.9 1 .4-2.1L9 11.3l2-.3z" fill="currentColor"/></svg></span>
+              <span class="item-name" data-i18n="pack.item.vip"></span>
+              <span class="item-detail" data-i18n="pack.item.vip.detail" data-i18n-vars="days:pack.vip.days"></span>
+            </li>
+            <li class="item" data-item="potions">
+              <span class="item-visual"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><path d="M9 3h6M10 3v5l-4.5 8A3 3 0 0 0 8.2 21h7.6a3 3 0 0 0 2.7-5L14 8V3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.2 15h9.6l1.3 2.4A2 2 0 0 1 16.3 20H7.7a2 2 0 0 1-1.8-2.6z" fill="currentColor"/></svg></span>
+              <span class="item-name" data-i18n="pack.item.potions"></span>
+              <span class="item-detail" data-i18n="pack.item.potions.detail" data-i18n-vars="qty:pack.potions.qty"></span>
+            </li>
+            <li class="item" data-item="zeny">
+              <span class="item-visual"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><ellipse cx="12" cy="7" rx="7" ry="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 7v5c0 1.7 3.1 3 7 3s7-1.3 7-3V7M5 12v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>
+              <span class="item-name" data-i18n="pack.item.zeny"></span>
+              <span class="item-detail" data-i18n="pack.item.zeny.detail" data-i18n-vars="qty:pack.zeny.qty"></span>
+            </li>
+            <li class="item" data-item="headgear">
+              <span class="item-visual"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><path d="M3 18h18l-1.5-10-4.5 4-3-6-3 6-4.5-4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="14.5" r="1.5" fill="currentColor"/></svg></span>
+              <span class="item-name" data-i18n="pack.item.headgear"></span>
+              <span class="item-detail" data-i18n="pack.item.headgear.detail" data-i18n-vars="name:pack.headgear.name"></span>
+            </li>
+          </ul>
+
+          <div class="code" data-block="code">
+            <p class="code-label" data-i18n="code.label"></p>
+            <div class="code-row">
+              <output class="code-value" id="gift-code" aria-live="polite"></output>
+              <button type="button" class="code-copy" data-copy-code>
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                <span data-copy-label data-i18n="code.copy"></span>
+              </button>
+            </div>
+            <p class="code-where" data-i18n="code.where"></p>
+          </div>
+        </div>
+
+        <div class="cta-block">
+          <a class="cta cta-xl" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="hero" data-i18n-aria-label="cta.aria"><span data-cta-label></span><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <p class="micro" data-i18n="cta.micro"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2. URGENCY: COUNTDOWN + MILESTONES ============ -->
+    <section class="section" aria-labelledby="urgency-title" data-block="urgency">
+      <div class="wrap">
+        <div class="card countdown-card" data-block="countdown">
+          <p class="eyebrow" data-i18n="urgency.eyebrow"></p>
+          <h2 id="urgency-title" class="h2" data-i18n="urgency.title"></h2>
+          <div class="countdown" role="timer" aria-live="off">
+            <div class="cd-unit"><span class="cd-num" data-cd="d">--</span><span class="cd-lbl" data-i18n="urgency.days"></span></div>
+            <div class="cd-unit"><span class="cd-num" data-cd="h">--</span><span class="cd-lbl" data-i18n="urgency.hours"></span></div>
+            <div class="cd-unit"><span class="cd-num" data-cd="m">--</span><span class="cd-lbl" data-i18n="urgency.minutes"></span></div>
+            <div class="cd-unit"><span class="cd-num" data-cd="s">--</span><span class="cd-lbl" data-i18n="urgency.seconds"></span></div>
+          </div>
+        </div>
+
+        <div class="card milestone-card" data-block="milestones">
+          <h3 class="h3" data-i18n="milestone.title"></h3>
+          <p class="muted" data-i18n="milestone.sub"></p>
+          <div class="ms-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="ms-fill"></div>
+          </div>
+          <ol class="ms-list" role="list"></ol>
+          <p class="ms-current"><strong data-ms-current></strong> <span class="muted" data-ms-asof></span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3. CLASS TIER LIST ============ -->
+    <section class="section section-tint" aria-labelledby="tier-title">
+      <div class="wrap">
+        <p class="eyebrow center" data-i18n="tier.eyebrow"></p>
+        <h2 id="tier-title" class="h2 center" data-i18n="tier.title"></h2>
+        <div class="modes" role="tablist" data-i18n-aria-label="tier.modesLabel">
+          <button type="button" role="tab" class="mode" data-mode="pvp" aria-selected="true" data-i18n="tier.mode.pvp"></button>
+          <button type="button" role="tab" class="mode" data-mode="mvp" aria-selected="false" data-i18n="tier.mode.mvp"></button>
+          <button type="button" role="tab" class="mode" data-mode="farm" aria-selected="false" data-i18n="tier.mode.farm"></button>
+        </div>
+        <ul class="classes" role="list" data-class-list></ul>
+        <p class="disclaimer" data-i18n="tier.disclaimer"></p>
+      </div>
+    </section>
+
+    <!-- ============ 4. SOCIAL PROOF + TRUST ============ -->
+    <section class="section" aria-labelledby="proof-title">
+      <div class="wrap">
+        <p class="eyebrow center" data-i18n="proof.eyebrow"></p>
+        <h2 id="proof-title" class="h2 center" data-i18n="proof.title"></h2>
+        <div class="proof-grid">
+          <div class="card stat" data-block="claimed">
+            <p class="stat-num" data-claimed>0</p>
+            <p class="muted"><span data-i18n="proof.claimed"></span> <span data-claimed-asof></span></p>
+          </div>
+          <div class="card stat">
+            <p class="stat-num" data-i18n="proof.discord.num"></p>
+            <p class="muted" data-i18n="proof.discord"></p>
+          </div>
+        </div>
+        <ul class="trust" role="list">
+          <li data-i18n="trust.steam"></li>
+          <li data-i18n="trust.free"></li>
+          <li data-i18n="trust.pc"></li>
+          <li data-i18n="trust.sea"></li>
+        </ul>
+        <ul class="gallery" role="list">
+          <li class="shot media"><img src="assets/feature-mvp.webp" data-i18n-alt="alt.mvp" alt="" width="1280" height="720" loading="lazy" decoding="async"><span data-i18n="gallery.mvp"></span></li>
+          <li class="shot media"><img src="assets/feature-prontera.webp" data-i18n-alt="alt.prontera" alt="" width="1280" height="720" loading="lazy" decoding="async"><span data-i18n="gallery.prontera"></span></li>
+          <li class="shot media"><img src="assets/feature-guild.webp" data-i18n-alt="alt.guild" alt="" width="1280" height="720" loading="lazy" decoding="async"><span data-i18n="gallery.guild"></span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 5. HOW TO CLAIM ============ -->
+    <section class="section section-tint" aria-labelledby="steps-title">
+      <div class="wrap">
+        <p class="eyebrow center" data-i18n="steps.eyebrow"></p>
+        <h2 id="steps-title" class="h2 center" data-i18n="steps.title"></h2>
+        <ol class="steps" role="list">
+          <li class="card step"><span class="step-n" aria-hidden="true">1</span><h3 class="h3" data-i18n="steps.1.title"></h3><p class="muted" data-i18n="steps.1.text"></p></li>
+          <li class="card step"><span class="step-n" aria-hidden="true">2</span><h3 class="h3" data-i18n="steps.2.title"></h3><p class="muted" data-i18n="steps.2.text"></p></li>
+          <li class="card step"><span class="step-n" aria-hidden="true">3</span><h3 class="h3" data-i18n="steps.3.title"></h3><p class="muted" data-i18n="steps.3.text"></p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ 6. FINAL CTA + FOOTER ============ -->
+    <section class="final" aria-labelledby="final-title">
+      <div class="wrap final-in">
+        <h2 id="final-title" class="h2" data-i18n="final.title"></h2>
+        <p class="muted" data-i18n="final.sub"></p>
+        <div class="cta-block center">
+          <a class="cta cta-xl" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="final" data-i18n-aria-label="cta.aria"><span data-cta-label></span></a>
+          <p class="micro" data-i18n="cta.micro"></p>
+        </div>
+      </div>
+      <footer class="footer">
+        <div class="wrap">
+          <p data-i18n="footer.iap"></p>
+          <p data-i18n="footer.legal"></p>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <!-- Sticky mobile CTA -->
+  <div class="sticky">
+    <div class="wrap sticky-in">
+      <p class="sticky-text" data-block="pack" data-i18n="sticky.text"></p>
+      <a class="cta" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="sticky" data-i18n-aria-label="cta.aria"><span data-cta-label></span></a>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Class card template (filled by script.js from config.tierList) -->
+  <template id="class-tpl">
+    <li class="card class-card">
+      <div class="class-head">
+        <h3 class="h3 class-name"></h3>
+        <p class="class-role muted"></p>
+      </div>
+      <p class="rank-wrap"><span class="rank-label"></span><span class="rank"></span></p>
+      <a class="cta cta-sm" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener"><span class="class-cta"></span></a>
+    </li>
+  </template>
+
+  <script src="./config.js"></script>
+  <script src="./translations.js"></script>
+  <script src="./script.js" defer></script>
+</body>
+</html>
