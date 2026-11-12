@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ragnarok: The New World — Play Free on Steam (Windows PC)</title>
+  <meta name="description" content="The first open-world Ragnarok on Windows PC. Free-to-play, 8 iconic classes including Druid, cross-progression and SEA servers. Install on Steam in 4 steps.">
+  <meta name="theme-color" content="#0B0F19">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ragnarok: The New World — Play Free on Steam">
+  <meta property="og:description" content="The first open-world Ragnarok on Windows PC. Free-to-play, 8 classes including Druid, SEA servers.">
+  <meta property="og:image" content="assets/hero-bg.webp">
+  <meta property="og:image:width" content="1920">
+  <meta property="og:image:height" content="1080">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="data:,">
+
+  <!-- Fonts: Cinzel (epic titles) + Plus Jakarta Sans (body). display=swap = text never blocked -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap">
+
+  <link rel="preload" as="image" type="image/webp" href="assets/hero-bg.webp">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===================== 1. HEADER (no navigation) ===================== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <!-- LOGO: text wordmark. To use the official logo, add assets/logo.webp and an <img> here (see assets/README.md) -->
+        <span class="brand-name">Ragnarok<span class="brand-sub">The New World</span></span>
+      </div>
+      <p class="license-badge"><span class="dot" aria-hidden="true"></span>Official License · Free-to-Play · Windows PC</p>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===================== 2. HERO (A/B: ?variant=a | ?variant=b, default B) ===================== -->
+    <section class="hero" id="hero" aria-labelledby="hero-title">
+      <div class="hero-media media" aria-hidden="true">
+        <!-- Real in-game screenshot (Steam store page). Replace assets/hero-bg.webp, 1920x1080 -->
+        <img src="assets/hero-bg.webp" alt="" width="1920" height="1080" fetchpriority="high" decoding="async">
+      </div>
+      <div class="hero-aurora" aria-hidden="true"></div>
+
+      <div class="container hero-inner">
+        <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>Now on Steam · SEA</p>
+        <h1 id="hero-title" class="hero-title"
+            data-variant-a="Return to Midgard in Open World. Free on PC."
+            data-variant-b="Your Midgard Adventure Continues Even While You Work.">Your Midgard Adventure Continues Even While You Work.</h1>
+        <p class="hero-sub">The first open-world Ragnarok on Windows PC. Free-to-play, 8 iconic classes including Druid, and cross-progression.</p>
+
+        <div class="cta-group">
+          <a class="cta" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="hero">
+            <span class="cta-label">Play Free on Steam</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <p class="micro">Free · Windows PC · SEA Servers · 4 Steps · 30 GB · Gravity Account</p>
+        </div>
+
+        <div class="ab-debug" hidden>
+          <span>A/B</span>
+          <button type="button" data-set-variant="a">A</button>
+          <button type="button" data-set-variant="b">B</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 3. WHAT YOU WILL FIND AGAIN ===================== -->
+    <section class="section reveal" id="find-again" aria-labelledby="find-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">What you will find again</p>
+          <h2 id="find-title">Your Midgard, rebuilt as an open world</h2>
+          <p class="lead">Everything you loved at the internet café, now seamless and on your own PC.</p>
+        </header>
+
+        <!-- Real in-game screenshots from the Steam store page (16:9). Replace files in assets/ with the same names. -->
+        <ul class="bento" role="list">
+          <li class="bento-card bento-xl media">
+            <img src="assets/feature-classes.webp" alt="In-game screenshot: adventurers of different classes in their outfits" width="1280" height="720" loading="lazy" decoding="async">
+            <div class="bento-body">
+              <span class="chip">8 classes</span>
+              <h3>8 iconic classes, including the new Druid</h3>
+              <p>The Druid switches forms on the fly: werewolf, wereraptor or human arcanist.</p>
+            </div>
+          </li>
+          <li class="bento-card media">
+            <img src="assets/feature-mvp.webp" alt="In-game screenshot: a party fighting a giant MVP boss" width="1280" height="720" loading="lazy" decoding="async">
+            <div class="bento-body"><h3>MVP hunts</h3><p>Defeat an MVP, then ride it as your mount.</p></div>
+          </li>
+          <li class="bento-card media">
+            <img src="assets/feature-prontera.webp" alt="In-game screenshot: crowds of players in Prontera" width="1280" height="720" loading="lazy" decoding="async">
+            <div class="bento-body"><h3>Prontera, revisited</h3><p>The capital you remember, bigger.</p></div>
+          </li>
+          <li class="bento-card media">
+            <img src="assets/feature-mount.webp" alt="In-game screenshot: adventurers climbing rooftops, swimming and floating across the open world" width="1280" height="720" loading="lazy" decoding="async">
+            <div class="bento-body"><h3>Open world, your way</h3><p>Climb, swim, ride: one seamless Midgard.</p></div>
+          </li>
+          <li class="bento-card bento-text">
+            <div class="bento-body">
+              <h3>The classics are back</h3>
+              <ul class="mini-list" role="list">
+                <li><svg class="ico" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Trade stalls</li>
+                <li><svg class="ico" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Weddings</li>
+                <li><svg class="ico" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Costumes &amp; dyes</li>
+              </ul>
+            </div>
+          </li>
+          <li class="bento-card bento-text bento-accent">
+            <div class="bento-body">
+              <p class="big-num">8</p>
+              <h3>classes at launch</h3>
+              <p>Change jobs anytime with free resets.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================== 4. BUILT FOR BUSY PLAYERS ===================== -->
+    <section class="section section-tint reveal" id="busy" aria-labelledby="busy-title">
+      <div class="container">
+        <div class="split">
+          <div>
+            <p class="eyebrow">Built for busy players</p>
+            <h2 id="busy-title">A job, a family, and still a Midgard main</h2>
+            <p class="lead">Simple facts that save you time.</p>
+            <ul class="feature-list" role="list">
+              <li class="glass feature">
+                <span class="feature-ico" aria-hidden="true"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <div><h3>Offline Hunting</h3><p>Your character earns resources while you're logged out.</p></div>
+              </li>
+              <li class="glass feature">
+                <span class="feature-ico" aria-hidden="true"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <div><h3>Free stat &amp; class reset</h3><p>Try another build or class without paying.</p></div>
+              </li>
+              <li class="glass feature">
+                <span class="feature-ico" aria-hidden="true"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <div><h3>Refining without breaking</h3><p>A failed refine doesn't destroy your gear.</p></div>
+              </li>
+              <li class="glass feature">
+                <span class="feature-ico" aria-hidden="true"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <div><h3>PC &amp; mobile cross-progression</h3><p>Same character, synced on both.</p></div>
+              </li>
+            </ul>
+          </div>
+          <figure class="media-frame media">
+            <img src="assets/feature-offline.webp" alt="In-game screenshot: a character auto-hunting a field of Porings" width="1280" height="720" loading="lazy" decoding="async">
+          </figure>
+        </div>
+
+        <div class="cta-group cta-center">
+          <a class="cta" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="busy"><span class="cta-label">Play Free on Steam</span></a>
+          <p class="micro">Free · Windows PC · SEA Servers · 4 Steps · 30 GB · Gravity Account</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 5. PLAY WITH YOUR GUILD ===================== -->
+    <section class="section reveal" id="guild" aria-labelledby="guild-title">
+      <div class="container">
+        <div class="split split-reverse">
+          <figure class="media-frame media">
+            <img src="assets/feature-guild.webp" alt="In-game screenshot: a large guild battle in front of a castle" width="1280" height="720" loading="lazy" decoding="async">
+          </figure>
+          <div>
+            <p class="eyebrow">Play with your guild</p>
+            <h2 id="guild-title">Get the old party back together</h2>
+            <ul class="check-list" role="list">
+              <li><strong>Party dungeons</strong> — team up for bosses and loot.</li>
+              <li><strong>Guild wars</strong> — fight for your guild's name.</li>
+              <li><strong>Player trading</strong> — buy and sell with other players.</li>
+              <li><strong>SEA servers</strong> — Philippines, Thailand, Singapore, Malaysia, Indonesia.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 6. OFFICIAL GAMEPLAY SHOWCASE ===================== -->
+    <section class="section section-tint reveal" id="showcase" aria-labelledby="showcase-title" data-footage-note="trailer">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Official gameplay showcase</p>
+          <h2 id="showcase-title">See Midgard in motion</h2>
+        </header>
+
+        <div class="player" data-player>
+          <div class="player-frame media">
+            <video id="trailer" class="player-video" width="1280" height="720" preload="none" playsinline
+                   poster="assets/video-poster.webp" aria-label="Ragnarok: The New World official trailer" aria-describedby="footage-note">
+              <source src="assets/gameplay-trailer.mp4" type="video/mp4">
+            </video>
+            <button type="button" class="player-overlay" aria-label="Play the official trailer, 1 minute 56 seconds">
+              <span class="play-btn" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" focusable="false"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
+              <span class="player-duration" aria-hidden="true">1:56</span>
+            </button>
+          </div>
+
+          <div class="player-bar">
+            <div class="chapters" role="group" aria-label="Jump to a chapter">
+              <button type="button" class="chapter" data-time="0" aria-pressed="false">Open World <span>0:00</span></button>
+              <button type="button" class="chapter" data-time="12" aria-pressed="false">MVP Combat <span>0:12</span></button>
+              <button type="button" class="chapter" data-time="80" aria-pressed="false">Classes &amp; Looks <span>1:20</span></button>
+            </div>
+            <button type="button" class="cc-btn" aria-pressed="false" aria-label="Captions">CC</button>
+          </div>
+          <!-- Captions (WebVTT). Inline so they also work when index.html is opened from disk.
+               Replace the cues below with the official subtitles. -->
+          <script type="text/vtt" id="captions-en" data-label="English" data-lang="en">
+WEBVTT
+
+00:00:00.000 --> 00:00:07.500
+[Music] A hot-air balloon drifts over the open world of Midgard.
+
+00:00:07.500 --> 00:00:12.000
+An adventurer leaps into a new vision of the world.
+
+00:00:12.000 --> 00:00:24.000
+[Battle music] Giant MVP bosses appear across the open world.
+
+00:00:24.000 --> 00:00:40.000
+Adventurers explore grassy hills and forests together.
+
+00:00:40.000 --> 00:00:58.000
+[Combat] Skills, explosions and magic fill the screen.
+
+00:00:58.000 --> 00:01:10.000
+Gathering and treasure chests in the open world.
+
+00:01:10.000 --> 00:01:20.000
+Players gather around a town quest board.
+
+00:01:20.000 --> 00:01:36.000
+Character customization: outfits, hairstyles and looks.
+
+00:01:36.000 --> 00:01:56.000
+[Music swells] The hero sets off across Midgard.
+          </script>
+          <p class="footage-note" id="footage-note">Official trailer from the game's Steam store page. No sound until you press play.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 7. 4 SIMPLE STEPS ===================== -->
+    <section class="section reveal" id="steps" aria-labelledby="steps-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">4 simple steps to enter Midgard</p>
+          <h2 id="steps-title">From this page to your first login</h2>
+        </header>
+
+        <ol class="steps" role="list">
+          <li class="glass step"><span class="step-n" aria-hidden="true">1</span><h3><span class="sr-only">Step 1: </span>Click <em>Play Free on Steam</em></h3><p>Opens the official Steam page.</p></li>
+          <li class="glass step"><span class="step-n" aria-hidden="true">2</span><h3><span class="sr-only">Step 2: </span>Download &amp; install on Windows PC</h3><p>About 30 GB.</p></li>
+          <li class="glass step"><span class="step-n" aria-hidden="true">3</span><h3><span class="sr-only">Step 3: </span>Create or link your free Gravity account</h3><p>In-game, in addition to Steam.</p></li>
+          <li class="glass step"><span class="step-n" aria-hidden="true">4</span><h3><span class="sr-only">Step 4: </span>Select your SEA server &amp; first login!</h3><p>Create your character and go.</p></li>
+        </ol>
+
+        <div class="steps-grid">
+          <div class="glass spec">
+            <h3>Will my PC run it?</h3>
+            <dl>
+              <div><dt>System</dt><dd>Windows PC</dd></div>
+              <div><dt>Memory</dt><dd>12 GB RAM min · 16 GB recommended</dd></div>
+              <div><dt>Storage</dt><dd>30 GB</dd></div>
+              <div><dt>Network</dt><dd>Broadband internet</dd></div>
+            </dl>
+          </div>
+          <div class="glass relay">
+            <h3>Visiting on mobile?</h3>
+            <p>The game installs on a Windows PC. Send this page to yourself and finish at your desk.</p>
+            <button type="button" class="btn-ghost" data-relay-open aria-haspopup="dialog">
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 20h8M12 16v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Send this page link to your PC
+            </button>
+          </div>
+        </div>
+
+        <div class="cta-group cta-center">
+          <a class="cta" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="steps"><span class="cta-label">Play Free on Steam</span></a>
+          <p class="micro">Free · Windows PC · SEA Servers · 4 Steps · 30 GB · Gravity Account</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 8. HONEST FAQ ===================== -->
+    <section class="section section-tint reveal" id="faq" aria-labelledby="faq-title">
+      <div class="container narrow">
+        <header class="section-head">
+          <p class="eyebrow">Honest FAQ</p>
+          <h2 id="faq-title">Straight answers</h2>
+        </header>
+        <div class="faq">
+          <div class="faq-item">
+            <h3><button type="button" class="faq-q" id="q1" aria-expanded="false" aria-controls="a1">Is it really free-to-play?<span class="faq-icon" aria-hidden="true"></span></button></h3>
+            <div class="faq-a" id="a1" role="region" aria-labelledby="q1" hidden><div><p>Yes, downloading and playing are free. The game has optional in-app purchases. Stat and class resets, refining without breaking and offline hunting are available to every player.</p></div></div>
+          </div>
+          <div class="faq-item">
+            <h3><button type="button" class="faq-q" id="q2" aria-expanded="false" aria-controls="a2">Why do I need a Gravity account in addition to Steam?<span class="faq-icon" aria-hidden="true"></span></button></h3>
+            <div class="faq-a" id="a2" role="region" aria-labelledby="q2" hidden><div><p>Gravity is the game's publisher. Steam installs the game; the free Gravity account (created or linked in-game) holds your character and keeps it synced between PC and mobile.</p></div></div>
+          </div>
+          <div class="faq-item">
+            <h3><button type="button" class="faq-q" id="q3" aria-expanded="false" aria-controls="a3">How does offline progression work?<span class="faq-icon" aria-hidden="true"></span></button></h3>
+            <div class="faq-a" id="a3" role="region" aria-labelledby="q3" hidden><div><p>While you're logged out, Offline Hunting earns your character resources. MVPs, party dungeons, guild wars and PvP are played actively when you're online.</p></div></div>
+          </div>
+          <div class="faq-item">
+            <h3><button type="button" class="faq-q" id="q4" aria-expanded="false" aria-controls="a4">Will my PC run it?<span class="faq-icon" aria-hidden="true"></span></button></h3>
+            <div class="faq-a" id="a4" role="region" aria-labelledby="q4" hidden><div><p>You need Windows, at least 12 GB of RAM (16 GB recommended) and 30 GB of free space. Full requirements are on the Steam page.</p></div></div>
+          </div>
+          <div class="faq-item">
+            <h3><button type="button" class="faq-q" id="q5" aria-expanded="false" aria-controls="a5">Which servers are available?<span class="faq-icon" aria-hidden="true"></span></button></h3>
+            <div class="faq-a" id="a5" role="region" aria-labelledby="q5" hidden><div><p>SEA servers: Philippines, Thailand, Singapore, Malaysia and Indonesia.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 9. COMMUNITY & SOCIAL PROOF ===================== -->
+    <section class="section reveal" id="community" aria-labelledby="community-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Community</p>
+          <h2 id="community-title">Midgard is already full of familiar faces</h2>
+        </header>
+        <div class="proof">
+          <div class="glass proof-card proof-main">
+            <p class="counter"><span data-count-to="346000">346,000</span>+</p>
+            <p class="proof-label">Members on the official Discord <span>(Nov 2026)</span></p>
+          </div>
+          <div class="glass proof-card">
+            <p class="proof-kicker">SEA creators</p>
+            <p>Creators from Thailand and the Philippines visited the studio before the SEA launch.</p>
+          </div>
+        </div>
+
+        <!-- Verified testimonials: add real, dated, sourced quotes to the JSON below (see assets/README.md). Hidden while empty. -->
+        <div class="testimonials" id="testimonials" hidden>
+          <h3 class="sr-only">Player testimonials</h3>
+          <ul class="testimonial-list" role="list"></ul>
+        </div>
+        <script type="application/json" id="testimonials-data">[]</script>
+      </div>
+    </section>
+
+    <!-- ===================== 10. FINAL CTA & LEGAL FOOTER ===================== -->
+    <section class="final reveal" id="final" aria-labelledby="final-title">
+      <div class="container final-inner">
+        <h2 id="final-title">Midgard is 4 steps away</h2>
+        <ol class="recap" role="list">
+          <li><span>1</span>Click</li>
+          <li><span>2</span>Install · 30 GB</li>
+          <li><span>3</span>Gravity account</li>
+          <li><span>4</span>First login</li>
+        </ol>
+        <div class="cta-group cta-center">
+          <a class="cta cta-xl" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="final"><span class="cta-label">Play Free on Steam</span></a>
+          <p class="micro">Free · Windows PC · SEA Servers · 4 Steps · 30 GB · Gravity Account</p>
+        </div>
+      </div>
+      <footer class="site-footer">
+        <div class="container footer-inner">
+          <p>Free-to-play with optional in-app purchases.</p>
+          <p>Contains fantasy violence. Age ratings vary by region; see the Steam store page for yours.</p>
+          <p class="legal">Independent, non-official promotional page. Ragnarok and all related trademarks © Gravity Co., Ltd. / Gravity Game Vision Limited.</p>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <!-- ===================== STICKY CTA BAR (always visible, mobile + desktop) ===================== -->
+  <div class="sticky-bar" role="region" aria-label="Play the game">
+    <div class="container sticky-inner">
+      <div class="sticky-text">
+        <p><strong>Ragnarok: The New World</strong><span>Free · Windows PC · SEA Servers</span></p>
+      </div>
+      <a class="cta cta-sm" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="sticky-bar"><span class="cta-label">Play Free on Steam</span></a>
+    </div>
+  </div>
+
+  <!-- ===================== RELAY DIALOG (secondary, not a conversion) ===================== -->
+  <dialog class="relay-dialog" id="relay-dialog" aria-labelledby="relay-title">
+    <div class="relay-head">
+      <h2 id="relay-title">Send this page to your PC</h2>
+      <button type="button" class="relay-close" data-relay-close aria-label="Close">×</button>
+    </div>
+    <p class="relay-hint">Open it on your Windows PC to install the game.</p>
+    <label class="relay-field"><span class="sr-only">Link to this page</span><input type="text" id="relay-url" readonly></label>
+    <div class="relay-actions">
+      <button type="button" class="relay-act" data-relay="copy">Copy link</button>
+      <a class="relay-act" data-relay="email" href="#" target="_blank" rel="noopener">Email</a>
+      <a class="relay-act" data-relay="whatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="relay-act" data-relay="line" href="#" target="_blank" rel="noopener">LINE</a>
+      <button type="button" class="relay-act" data-relay="share" hidden>More…</button>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="./script.js" defer></script>
+</body>
+</html>
