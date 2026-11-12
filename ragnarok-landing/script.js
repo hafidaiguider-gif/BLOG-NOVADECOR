@@ -1,218 +1,356 @@
 /**
- * Ragnarok: The New World — Landing page (TAF 2, Groupe 109)
- * Single conversion goal: first login after installing via Steam.
+ * Ragnarok: The New World — Landing page (AFBooster)
+ * Single conversion goal: first login on PC via Steam.
  *
- * - A/B hero headline: ?v=a / ?v=b, else localStorage, else A
- * - cta_click tracking pushed to window.dataLayer (only if it exists), never blocks navigation
- * - Accessible FAQ accordion (aria-expanded / aria-controls, arrow keys)
- * - "Send this link to my PC" relay button (navigator.share on mobile, clipboard + toast otherwise)
- * - Mobile sticky CTA bar after 300 px of scroll
- * - Scroll reveal + light hero parallax, both disabled with prefers-reduced-motion
- * No external libraries. No console output.
+ *  - A/B hero: ?variant=a | ?variant=b (default B), remembered in localStorage
+ *  - Tracking: cta_click, relay_click, video_play (+ video_progress) → window.dataLayer
+ *    console.log mirror only in debug mode (?debug=1) to keep the production console clean
+ *  - FAQ accordion (keyboard: Enter/Space, ArrowUp/Down, Home/End)
+ *  - Trailer: custom play button, chapters, captions toggle, no autoplay
+ *  - Relay "send this page to my PC": copy link + Email / WhatsApp / LINE / native share, toast
+ *  - Discord counter, scroll reveal, light hero parallax (all off with prefers-reduced-motion)
  */
 (function () {
   'use strict';
 
   var STEAM_URL = 'https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/';
-  var STORAGE_KEY = 'rtnw_hero_variant';
+  var STORAGE_KEY = 'rtnw_variant';
   var root = document.documentElement;
-  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var variant = 'a';
+  var params = safeParams();
+  var DEBUG = params.get('debug') === '1';
+  var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var variant = 'b';
 
   root.classList.add('js');
+  window.dataLayer = window.dataLayer || [];
 
-  function push(data) {
-    // Push only if a tag manager created dataLayer; never create or block anything.
-    if (Array.isArray(window.dataLayer)) {
-      try { window.dataLayer.push(data); } catch (e) { /* ignore */ }
-    }
+  function safeParams() {
+    try { return new URLSearchParams(window.location.search); } catch (e) { return { get: function () { return null; } }; }
+  }
+
+  function track(event, data) {
+    var payload = { event: event, variant: variant };
+    for (var k in data) if (Object.prototype.hasOwnProperty.call(data, k)) payload[k] = data[k];
+    try { window.dataLayer.push(payload); } catch (e) { /* never break the page */ }
+    if (DEBUG && window.console) window.console.log('[track]', payload);
   }
 
   /* ---------- A/B hero ---------- */
-  function readStoredVariant() {
-    try { return window.localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
-  }
-  function storeVariant(v) {
-    try { window.localStorage.setItem(STORAGE_KEY, v); } catch (e) { /* storage blocked */ }
-  }
+  function store(v) { try { window.localStorage.setItem(STORAGE_KEY, v); } catch (e) { /* blocked */ } }
+  function stored() { try { return window.localStorage.getItem(STORAGE_KEY); } catch (e) { return null; } }
+
   function applyVariant(v) {
-    variant = v === 'b' ? 'b' : 'a';
+    variant = v === 'a' ? 'a' : 'b';
     root.setAttribute('data-variant', variant);
     var title = document.getElementById('hero-title');
-    if (title) {
-      var text = title.getAttribute('data-title-' + variant);
-      if (text) title.textContent = text;
-    }
-    var buttons = document.querySelectorAll('.ab-btn');
-    for (var i = 0; i < buttons.length; i++) {
-      buttons[i].setAttribute('aria-pressed', String(buttons[i].getAttribute('data-variant') === variant));
-    }
+    var text = title && title.getAttribute('data-variant-' + variant);
+    if (text) title.textContent = text;
   }
+
   function initVariant() {
-    var param = null;
-    try { param = new URLSearchParams(window.location.search).get('v'); } catch (e) { param = null; }
-    if (param === 'a' || param === 'b') {
-      storeVariant(param);
-      applyVariant(param);
-    } else {
-      applyVariant(readStoredVariant());
-    }
-    push({ event: 'ab_variant_view', variant: variant });
+    var fromUrl = (params.get('variant') || '').toLowerCase();
+    if (fromUrl === 'a' || fromUrl === 'b') { store(fromUrl); applyVariant(fromUrl); }
+    else applyVariant(stored() || 'b');
+    track('variant_view', {});
 
-    var buttons = document.querySelectorAll('.ab-btn');
-    for (var i = 0; i < buttons.length; i++) {
-      buttons[i].addEventListener('click', function () {
-        var v = this.getAttribute('data-variant');
-        storeVariant(v);
-        applyVariant(v);
-      });
+    if (DEBUG) {
+      var box = document.querySelector('.ab-debug');
+      if (box) {
+        box.hidden = false;
+        box.addEventListener('click', function (e) {
+          var b = e.target.closest('[data-set-variant]');
+          if (b) { store(b.getAttribute('data-set-variant')); applyVariant(b.getAttribute('data-set-variant')); }
+        });
+      }
     }
   }
 
-  /* ---------- CTA tracking ---------- */
-  function initCtaTracking() {
+  /* ---------- CTA tracking (never blocks navigation) ---------- */
+  function initCta() {
     document.addEventListener('click', function (e) {
-      var link = e.target.closest ? e.target.closest('a[data-cta]') : null;
-      if (!link) return;
-      push({
-        event: 'cta_click',
-        cta_position: link.getAttribute('data-cta'),
-        variant: variant,
-        destination: STEAM_URL
-      });
-      // No preventDefault: the browser follows the Steam link normally.
+      var a = e.target.closest ? e.target.closest('a[data-cta]') : null;
+      if (!a) return;
+      track('cta_click', { cta_position: a.getAttribute('data-cta'), cta_url: STEAM_URL });
     });
   }
 
-  /* ---------- Accordion ---------- */
-  function initAccordion() {
-    var buttons = Array.prototype.slice.call(document.querySelectorAll('.acc-btn'));
-    buttons.forEach(function (btn, index) {
-      var panel = document.getElementById(btn.getAttribute('aria-controls'));
+  /* ---------- FAQ ---------- */
+  function initFaq() {
+    var qs = Array.prototype.slice.call(document.querySelectorAll('.faq-q'));
+    qs.forEach(function (q, i) {
+      var panel = document.getElementById(q.getAttribute('aria-controls'));
       if (!panel) return;
-      btn.addEventListener('click', function () {
-        var open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-        panel.hidden = open;
+      q.addEventListener('click', function () {
+        var open = q.getAttribute('aria-expanded') === 'true';
+        q.setAttribute('aria-expanded', String(!open));
+        if (open) {
+          panel.classList.remove('is-open');
+          if (reduceMotion) panel.hidden = true;
+          else window.setTimeout(function () { if (q.getAttribute('aria-expanded') === 'false') panel.hidden = true; }, 360);
+        } else {
+          panel.hidden = false;
+          window.requestAnimationFrame(function () { panel.classList.add('is-open'); });
+        }
       });
-      btn.addEventListener('keydown', function (e) {
-        var next = null;
-        if (e.key === 'ArrowDown') next = buttons[(index + 1) % buttons.length];
-        else if (e.key === 'ArrowUp') next = buttons[(index - 1 + buttons.length) % buttons.length];
-        else if (e.key === 'Home') next = buttons[0];
-        else if (e.key === 'End') next = buttons[buttons.length - 1];
-        if (next) { e.preventDefault(); next.focus(); }
+      q.addEventListener('keydown', function (e) {
+        var t = null;
+        if (e.key === 'ArrowDown') t = qs[(i + 1) % qs.length];
+        else if (e.key === 'ArrowUp') t = qs[(i - 1 + qs.length) % qs.length];
+        else if (e.key === 'Home') t = qs[0];
+        else if (e.key === 'End') t = qs[qs.length - 1];
+        if (t) { e.preventDefault(); t.focus(); }
       });
     });
+  }
+
+  /* Build a captions track from the inline WebVTT block (works from file:// and http) */
+  function toSeconds(t) {
+    var p = t.trim().split(':');
+    var s = 0;
+    for (var i = 0; i < p.length; i++) s = s * 60 + parseFloat(p[i]);
+    return s;
+  }
+  function buildCaptions(video) {
+    var src = document.getElementById('captions-en');
+    if (!src || !video.addTextTrack || typeof window.VTTCue !== 'function') return null;
+    var track = video.addTextTrack('captions', src.getAttribute('data-label') || 'English', src.getAttribute('data-lang') || 'en');
+    src.textContent.replace(/\r/g, '').split(/\n\s*\n/).forEach(function (block) {
+      var lines = block.trim().split('\n');
+      var timing = null, i;
+      for (i = 0; i < lines.length; i++) { if (lines[i].indexOf('-->') !== -1) { timing = lines[i]; break; } }
+      if (!timing) return;
+      var parts = timing.split('-->');
+      var text = lines.slice(i + 1).join('\n').trim();
+      if (text) track.addCue(new window.VTTCue(toSeconds(parts[0]), toSeconds(parts[1].trim().split(' ')[0]), text));
+    });
+    track.mode = 'hidden';
+    return track;
+  }
+
+  /* ---------- Trailer player ---------- */
+  function initPlayer() {
+    var wrap = document.querySelector('[data-player]');
+    if (!wrap) return;
+    var video = wrap.querySelector('video');
+    var overlay = wrap.querySelector('.player-overlay');
+    var chapters = wrap.querySelectorAll('.chapter');
+    var cc = wrap.querySelector('.cc-btn');
+    var started = false;
+    var marks = { 25: false, 50: false, 75: false, 100: false };
+
+    function start(at) {
+      wrap.classList.add('is-playing');
+      video.controls = true;
+      if (typeof at === 'number') {
+        try { video.currentTime = at; } catch (e) { /* metadata not loaded yet */ }
+        if (video.readyState < 1) video.addEventListener('loadedmetadata', function once() { video.currentTime = at; video.removeEventListener('loadedmetadata', once); });
+      }
+      var p = video.play();
+      if (p && p.catch) p.catch(function () { /* user can press play in native controls */ });
+      video.focus();
+    }
+
+    overlay.addEventListener('click', function () { start(); });
+
+    video.addEventListener('play', function () {
+      if (!started) { started = true; track('video_play', { video_title: 'Official trailer', video_position: Math.round(video.currentTime) }); }
+    });
+    video.addEventListener('timeupdate', function () {
+      if (!video.duration) return;
+      var pct = (video.currentTime / video.duration) * 100;
+      [25, 50, 75].forEach(function (m) { if (!marks[m] && pct >= m) { marks[m] = true; track('video_progress', { percent: m }); } });
+      for (var i = 0; i < chapters.length; i++) {
+        var from = +chapters[i].getAttribute('data-time');
+        var to = chapters[i + 1] ? +chapters[i + 1].getAttribute('data-time') : Infinity;
+        chapters[i].setAttribute('aria-pressed', String(video.currentTime >= from && video.currentTime < to));
+      }
+    });
+    video.addEventListener('ended', function () { if (!marks[100]) { marks[100] = true; track('video_progress', { percent: 100 }); } });
+
+    Array.prototype.forEach.call(chapters, function (btn) {
+      btn.addEventListener('click', function () {
+        var t = +btn.getAttribute('data-time');
+        track('video_chapter', { chapter: btn.firstChild.textContent.trim(), time: t });
+        start(t);
+      });
+    });
+
+    // "Real in-game footage" is shown only when the section is flagged data-footage-note="real"
+    var section = wrap.closest('[data-footage-note]');
+    var note = document.getElementById('footage-note');
+    if (section && note && section.getAttribute('data-footage-note') === 'real') {
+      note.textContent = 'Real in-game footage. No sound until you press play.';
+    }
+
+    var captions = buildCaptions(video);
+    if (cc && !captions) cc.hidden = true;
+    if (cc && captions) {
+      cc.addEventListener('click', function () {
+        var on = cc.getAttribute('aria-pressed') !== 'true';
+        cc.setAttribute('aria-pressed', String(on));
+        captions.mode = on ? 'showing' : 'hidden';
+      });
+    }
   }
 
   /* ---------- Toast ---------- */
-  var toastTimer = null;
-  function toast(message) {
+  var toastTimer;
+  function toast(msg) {
     var el = document.getElementById('toast');
     if (!el) return;
-    el.textContent = message;
+    el.textContent = msg;
     el.classList.add('is-visible');
     window.clearTimeout(toastTimer);
-    toastTimer = window.setTimeout(function () { el.classList.remove('is-visible'); }, 4500);
+    toastTimer = window.setTimeout(function () { el.classList.remove('is-visible'); }, 3800);
   }
 
-  /* ---------- Relay: send this landing page to my PC ---------- */
-  function relayUrl() {
-    var url;
+  /* ---------- Relay: send this page to my PC ---------- */
+  function pageUrl() {
     try {
-      url = new URL(window.location.href);
-      url.hash = '';
-      url.search = '';
-      url.searchParams.set('relais', '1');
-      url.searchParams.set('v', variant);
-      return url.toString();
+      var u = new URL(window.location.href);
+      u.hash = ''; u.search = '';
+      u.searchParams.set('variant', variant);
+      u.searchParams.set('relay', '1');
+      return u.toString();
     } catch (e) {
-      return window.location.href.split('#')[0].split('?')[0] + '?relais=1&v=' + variant;
+      return window.location.href.split('#')[0].split('?')[0] + '?variant=' + variant + '&relay=1';
     }
   }
-  function initRelay() {
-    var btn = document.querySelector('[data-relay]');
-    if (!btn) return;
-    btn.addEventListener('click', function () {
-      var link = relayUrl();
-      var isMobile = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
-      push({ event: 'relay_click', variant: variant, method: isMobile && navigator.share ? 'share' : 'copy' });
 
-      if (isMobile && navigator.share) {
-        navigator.share({ title: 'Ragnarok: The New World — install on PC', url: link })
-          .then(function () { toast('Link sent. Open it on your PC.'); })
-          .catch(function (err) { if (!err || err.name !== 'AbortError') copy(link); });
-        return;
-      }
-      copy(link);
+  function initRelay() {
+    var dialog = document.getElementById('relay-dialog');
+    var openBtn = document.querySelector('[data-relay-open]');
+    if (!dialog || !openBtn) return;
+    var input = document.getElementById('relay-url');
+    var msg = 'Ragnarok: The New World is free on PC. Install it here: ';
+
+    function fill() {
+      var url = pageUrl();
+      input.value = url;
+      var enc = encodeURIComponent(url);
+      dialog.querySelector('[data-relay="email"]').href = 'mailto:?subject=' + encodeURIComponent('Install Ragnarok: The New World on my PC') + '&body=' + encodeURIComponent(msg) + enc;
+      dialog.querySelector('[data-relay="whatsapp"]').href = 'https://wa.me/?text=' + encodeURIComponent(msg) + enc;
+      dialog.querySelector('[data-relay="line"]').href = 'https://line.me/R/msg/text/?' + encodeURIComponent(msg + url);
+      var share = dialog.querySelector('[data-relay="share"]');
+      if (share) share.hidden = !navigator.share;
+    }
+
+    openBtn.addEventListener('click', function () {
+      fill();
+      track('relay_click', { relay_method: 'open' });
+      if (typeof dialog.showModal === 'function') dialog.showModal();
+      else dialog.setAttribute('open', '');
     });
 
-    function copy(link) {
+    dialog.addEventListener('click', function (e) {
+      if (e.target === dialog) close();                       // click on backdrop
+      if (e.target.closest('[data-relay-close]')) close();
+      var act = e.target.closest('[data-relay]');
+      if (!act) return;
+      var method = act.getAttribute('data-relay');
+      track('relay_click', { relay_method: method });
+      if (method === 'copy') copy(input.value);
+      if (method === 'share' && navigator.share) {
+        navigator.share({ title: 'Ragnarok: The New World', text: msg, url: input.value })
+          .then(function () { toast('Shared. Open it on your PC.'); close(); })
+          .catch(function () { /* cancelled */ });
+      }
+    });
+
+    function close() {
+      if (typeof dialog.close === 'function' && dialog.open) dialog.close();
+      else dialog.removeAttribute('open');
+      openBtn.focus();
+    }
+
+    function copy(text) {
+      function fallback() {
+        input.focus(); input.select();
+        var ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+        toast(ok ? 'Link copied. Paste it on your PC.' : 'Select the link above and copy it.');
+      }
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(link)
-          .then(function () { toast('Link copied. Paste it on your PC.'); })
-          .catch(function () { toast('Copy this link: ' + link); });
-      } else {
-        toast('Copy this link: ' + link);
-      }
+        navigator.clipboard.writeText(text).then(function () { toast('Link copied. Paste it on your PC.'); }, fallback);
+      } else fallback();
     }
   }
 
-  /* ---------- Scroll: sticky bar + parallax ---------- */
-  function initScroll() {
-    var bar = document.getElementById('sticky-cta');
-    var barLink = bar ? bar.querySelector('a') : null;
-    var heroImg = document.querySelector('.hero-art-img');
-    var hero = document.getElementById('hero');
-    var ticking = false;
-    var barShown = false;
-
-    function update() {
-      ticking = false;
-      var y = window.pageYOffset || document.documentElement.scrollTop || 0;
-      var show = y > 300;
-      if (bar && show !== barShown) {
-        barShown = show;
-        bar.classList.toggle('is-visible', show);
-        bar.setAttribute('aria-hidden', String(!show));
-        if (barLink) barLink.setAttribute('tabindex', show ? '0' : '-1');
-      }
-      if (!reduceMotion && heroImg && hero && y < hero.offsetHeight) {
-        heroImg.style.setProperty('--parallax', (y * 0.18).toFixed(1) + 'px');
-      }
-    }
-    window.addEventListener('scroll', function () {
-      if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
-    }, { passive: true });
-    update();
+  /* ---------- Testimonials (rendered only if real data exists) ---------- */
+  function initTestimonials() {
+    var data = [];
+    try { data = JSON.parse((document.getElementById('testimonials-data') || {}).textContent || '[]'); } catch (e) { data = []; }
+    if (!Array.isArray(data) || !data.length) return;
+    var box = document.getElementById('testimonials');
+    var list = box.querySelector('ul');
+    data.forEach(function (t) {
+      if (!t || !t.quote || !t.author || !t.date) return;
+      var li = document.createElement('li');
+      li.className = 'glass testimonial';
+      var fig = document.createElement('figure');
+      var q = document.createElement('blockquote'); q.textContent = '“' + t.quote + '”';
+      var cap = document.createElement('figcaption'); cap.textContent = t.author + ' · ' + t.date;
+      fig.appendChild(q); fig.appendChild(cap); li.appendChild(fig); list.appendChild(li);
+    });
+    box.hidden = !list.children.length;
   }
 
-  /* ---------- Reveal on scroll ---------- */
-  function initReveal() {
+  /* ---------- Counter ---------- */
+  function initCounter() {
+    var el = document.querySelector('[data-count-to]');
+    if (!el || reduceMotion || !('IntersectionObserver' in window)) return;
+    var target = +el.getAttribute('data-count-to');
+    var io = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      io.disconnect();
+      var t0 = null;
+      function step(ts) {
+        if (!t0) t0 = ts;
+        var k = Math.min(1, (ts - t0) / 1400);
+        var eased = 1 - Math.pow(1 - k, 3);
+        el.textContent = Math.round(target * eased).toLocaleString('en-US');
+        if (k < 1) window.requestAnimationFrame(step);
+      }
+      window.requestAnimationFrame(step);
+    }, { threshold: 0.6 });
+    io.observe(el);
+  }
+
+  /* ---------- Reveal + parallax ---------- */
+  function initMotion() {
     var items = document.querySelectorAll('.reveal');
     if (reduceMotion || !('IntersectionObserver' in window)) {
-      for (var i = 0; i < items.length; i++) items[i].classList.add('is-visible');
-      return;
+      Array.prototype.forEach.call(items, function (n) { n.classList.add('is-visible'); });
+    } else {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); } });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+      Array.prototype.forEach.call(items, function (n) { io.observe(n); });
     }
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
+
+    var img = document.querySelector('.hero-media img');
+    if (!img || reduceMotion) return;
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function () {
+        var y = window.pageYOffset || 0;
+        if (y < 1000) img.style.setProperty('--parallax', (y * 0.2).toFixed(1) + 'px');
+        ticking = false;
       });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-    for (var j = 0; j < items.length; j++) io.observe(items[j]);
+    }, { passive: true });
   }
 
   function init() {
     initVariant();
-    initCtaTracking();
-    initAccordion();
+    initCta();
+    initFaq();
+    initPlayer();
     initRelay();
-    initScroll();
-    initReveal();
+    initTestimonials();
+    initCounter();
+    initMotion();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
