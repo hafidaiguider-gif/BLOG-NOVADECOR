@@ -10,6 +10,9 @@
  *
  * Events (window.dataLayer if present — GA4 / AFBooster compatible — else console.debug):
  *   page_view, cta_click, scroll_faq, video_play, faq_open, relay_click
+ *
+ * The language switch (ไทย | EN) is a plain relative link; it only carries over the
+ * current query string. There is no automatic language redirect.
  */
 (function () {
   'use strict';
@@ -243,7 +246,18 @@
     }
   }
 
+  /* ---------- Language switch: keep the URL parameters (?v=, campaign id, relais=1) ---------- */
+  function initLangLinks() {
+    var q = window.location.search;
+    if (!q) return;
+    Array.prototype.forEach.call(document.querySelectorAll('a[data-keep-query]'), function (a) {
+      var base = a.getAttribute('href').split('?')[0].split('#')[0];
+      a.setAttribute('href', base + q);
+    });
+  }
+
   function init() {
+    initLangLinks();
     applyVariant(pickVariant());
     track('page_view', { page_path: window.location.pathname });
     initCta();

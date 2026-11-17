@@ -99,7 +99,21 @@ a { color: inherit; }
 
 /* ---------- 1. Header ---------- */
 .site-header { background: var(--midgard-deep); color: var(--on-dark); border-bottom: 2px solid var(--gold-dark); }
-.header-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding-block: 12px; }
+.header-inner {
+  display: grid; grid-template-columns: 1fr auto; grid-template-areas: "logo lang" "badge badge";
+  align-items: center; gap: 8px 12px; padding-block: 10px 12px;
+}
+.logo { grid-area: logo; }
+.licence-badge { grid-area: badge; justify-self: start; }
+/* Language switch: small and neutral (no gold, no motion) so it never competes with the CTA */
+.lang-nav { grid-area: lang; display: flex; align-items: center; font-size: .875rem; font-weight: 500; line-height: 1; }
+.lang-nav a {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 0 8px;
+  color: var(--on-dark-soft); text-decoration: none; border-radius: 8px;
+}
+.lang-nav a:hover { color: #fff; background: rgba(255, 246, 227, .08); }
+.lang-nav a[aria-current="page"] { color: #fff; font-weight: 700; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+.lang-sep { color: rgba(213, 226, 241, .45); }
 .logo { display: flex; flex-direction: column; line-height: 1; }
 .logo-main { font-family: var(--font-title); font-weight: 700; font-size: 1.5rem; letter-spacing: .12em; color: var(--gold); text-shadow: 0 2px 0 rgba(0, 0, 0, .35); }
 .logo-sub { font-size: .75rem; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--on-dark-soft); margin-top: 4px; }
@@ -279,6 +293,8 @@ dialog::backdrop { background: rgba(5, 15, 30, .82); }
 /* ---------- ≥ 640 px ---------- */
 @media (min-width: 640px) {
   .container { padding-inline: 28px; }
+  .header-inner { grid-template-columns: auto 1fr auto; grid-template-areas: "logo badge lang"; }
+  .licence-badge { justify-self: end; }
   .tick-grid { grid-template-columns: repeat(2, 1fr); }
   .gallery { grid-template-columns: repeat(2, 1fr); }
   .cards { grid-template-columns: repeat(2, 1fr); }
