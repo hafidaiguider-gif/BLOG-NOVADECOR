@@ -50,6 +50,18 @@ Les 5 catégories narratives (WarmMinimalism, Textures, Palette, RoomEdit, Light
 | 4 | Satellite | The Warm Minimalist Kitchen: Function Meets Softness | warm minimalist kitchen design |
 | 5 | Satellite | Small Bathroom, Warm Minimalist Impact | warm minimalist bathroom |
 
+## 4bis. Cluster Living Room (sous-catégorie RoomMakeover)
+
+Ajouté après la mise en place de la Page Hub "Room Makeovers" et de ses sous-catégories (Living Room, Bedroom, Kitchen...), qui remplace pour ces sous-catégories la logique à plat du Cluster 4 — RoomEdit ci-dessus. Chaque sous-catégorie RoomMakeover reçoit désormais son propre cluster complet Pillar + 4 Satellites, structuré et lié exactement comme les clusters WarmMinimalism / Textures / Palette / Lighting. Point de vigilance non résolu : le Satellite 2 du Cluster 4 — RoomEdit ("The Warm Minimalist Living Room Edit") couvre un sujet désormais très proche de ce nouveau Pillar Living Room ; à trancher plus tard (fusion, suppression, ou angle différencié) sans bloquer la rédaction en cours.
+
+| Ordre | Rôle | Titre (Title Case) | Focused keyword proposé |
+|---|---|---|---|
+| 1 | Pillar | The Warm Minimalist Living Room Blueprint | warm minimalist living room |
+| 2 | Satellite | The Living Room Sofa Rule: One Statement Piece, Not Five Accents | warm minimalist sofa ideas |
+| 3 | Satellite | Coffee Table Styling for a Calm, Lived-In Living Room | coffee table styling ideas |
+| 4 | Satellite | How to Layer a Living Room Rug Without Breaking the Calm | living room rug layering |
+| 5 | Satellite | The Shelf Edit: Styling Bookshelves the Warm Minimalist Way | warm minimalist shelf styling |
+
 ## 5. Cluster 5 — Lighting
 
 | Ordre | Rôle | Titre (Title Case) | Focused keyword proposé |
