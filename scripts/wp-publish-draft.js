@@ -119,6 +119,7 @@ async function restFetch(url, authHdr, options = {}) {
     ...options,
     headers: {
       Authorization: authHdr,
+      'X-WP-Auth': authHdr,
       'Content-Type': 'application/json',
       'User-Agent':
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' +
