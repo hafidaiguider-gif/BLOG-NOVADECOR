@@ -18,8 +18,8 @@ converted to WebP. Screenshots and trailer © Gravity Game Vision Limited.
 | `feature-mount.webp` | 1280 × 720 | Section 3, "Open world" | Climbing / swimming / floating (swap for an MVP-mount capture if available) |
 | `feature-offline.webp` | 1280 × 720 | Section 4 | Auto-hunting Porings |
 | `feature-guild.webp` | 1280 × 720 | Section 5 | Guild occupation battle |
-| `video-poster.webp` | 1920 × 1080 | Section 6, before Play | Frame from the official trailer |
-| `gameplay-trailer.mp4` | 1280 × 720, H.264 + AAC, 1:56, `+faststart` | Section 6 player | Official Steam trailer |
+| `images/trailer_ragnarok_2026_30s-poster.webp` | 1280 × 720 | Section 6, before Play | Frame of the party charge (official trailer) |
+| `images/trailer_ragnarok_2026_30s.mp4` | 1280 × 720, H.264 + AAC, **30.0 s**, 4.2 MB, `+faststart` | Section 6 player | 30 s action cut of the official Steam trailer |
 
 ## If a file is missing
 
@@ -29,10 +29,15 @@ frame turns into a dark "cinema" placeholder labelled *Official in-game visual*.
 ## Video notes
 
 - Loaded only on Play (`preload="none"`), never autoplays with sound.
-- Chapter buttons use `data-time` (seconds) in `index.html`: 0 (Open World),
-  12 (MVP Combat), 80 (Classes & Looks). Update them if you change the video.
-- Captions: WebVTT cues in the `<script type="text/vtt" id="captions-en">`
-  block of `index.html` (scene descriptions for now; paste official subtitles there).
+- The 30 s cut uses 12 shots of the official trailer: balloon over Midgard (0:00),
+  MVP bosses (0:03), skills and magic (0:11), party charge (0:23), title card (0:27).
+  On the title card, the trailer's outdated mobile "pre-order / pre-register" badges
+  are covered by a "Play free on Steam · Windows PC" box.
+- Chapter buttons use `data-time` (seconds) in `index.html`: 0, 3, 11.2. Update them if you change the video.
+- If the file is missing or the player is blocked, a "Watch the trailer on Steam" button
+  appears in the player (exact Steam URL, no UTM).
+- Captions: WebVTT cues in the `<script type="text/vtt" id="captions-en">` block of
+  `index.html`, timed to the 30 s cut (the three quoted lines are the trailer's own; the rest describes the scenes).
 - "Real in-game footage" note: set `data-footage-note="real"` on the video section
   only if the file is 100 % in-game capture.
 

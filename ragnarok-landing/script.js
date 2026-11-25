@@ -146,14 +146,34 @@
         if (video.readyState < 1) video.addEventListener('loadedmetadata', function once() { video.currentTime = at; video.removeEventListener('loadedmetadata', once); });
       }
       var p = video.play();
-      if (p && p.catch) p.catch(function () { /* user can press play in native controls */ });
+      if (p && p.catch) p.catch(function (err) {
+        // Autoplay policy refusals keep the native controls; any other failure shows the Steam fallback.
+        if (!err || err.name !== 'NotAllowedError') showFallback('play_error');
+      });
       video.focus();
     }
 
     overlay.addEventListener('click', function () { start(); });
 
+    // Fallback: if the file is missing or the player is blocked, offer the official Steam page (exact URL, no UTM).
+    var fallback = wrap.querySelector('.video-fallback');
+    var failed = false;
+    function showFallback(reason) {
+      if (failed || !fallback) return;
+      failed = true;
+      try { video.pause(); } catch (e) { /* ignore */ }
+      wrap.classList.remove('is-playing');
+      video.controls = false;
+      fallback.hidden = false;
+      track('video_fallback', { reason: reason });
+    }
+    var source = video.querySelector('source');
+    if (source) source.addEventListener('error', function () { showFallback('source_error'); });
+    video.addEventListener('error', function () { showFallback('media_error'); });
+    if (video.canPlayType && !video.canPlayType('video/mp4')) showFallback('mp4_unsupported');
+
     video.addEventListener('play', function () {
-      if (!started) { started = true; track('video_play', { video_title: 'Official trailer', video_position: Math.round(video.currentTime) }); }
+      if (!started) { started = true; track('video_play', { video_title: 'Trailer 30s', video_position: Math.round(video.currentTime) }); }
     });
     video.addEventListener('timeupdate', function () {
       if (!video.duration) return;

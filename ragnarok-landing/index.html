@@ -194,57 +194,65 @@
 
         <div class="player" data-player>
           <div class="player-frame media">
+            <!-- 30 s action cut of the official Steam trailer: assets/images/trailer_ragnarok_2026_30s.mp4 (720p, 4.2 MB) -->
             <video id="trailer" class="player-video" width="1280" height="720" preload="none" playsinline
-                   poster="assets/video-poster.webp" aria-label="Ragnarok: The New World official trailer" aria-describedby="footage-note">
-              <source src="assets/gameplay-trailer.mp4" type="video/mp4">
+                   poster="assets/images/trailer_ragnarok_2026_30s-poster.webp" aria-label="Ragnarok: The New World, 30-second trailer" aria-describedby="footage-note">
+              <source src="assets/images/trailer_ragnarok_2026_30s.mp4" type="video/mp4">
             </video>
-            <button type="button" class="player-overlay" aria-label="Play the official trailer, 1 minute 56 seconds">
+            <button type="button" class="player-overlay" aria-label="Play the 30-second trailer">
               <span class="play-btn" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" focusable="false"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
-              <span class="player-duration" aria-hidden="true">1:56</span>
+              <span class="player-duration" aria-hidden="true">0:30</span>
             </button>
+            <div class="video-fallback" hidden>
+              <p>The video can't play here.</p>
+              <a class="btn-ghost" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="trailer-fallback">Watch the trailer on Steam</a>
+            </div>
           </div>
 
           <div class="player-bar">
-            <div class="chapters" role="group" aria-label="Jump to a chapter">
+            <div class="chapters" role="group" aria-label="Jump to a moment">
               <button type="button" class="chapter" data-time="0" aria-pressed="false">Open World <span>0:00</span></button>
-              <button type="button" class="chapter" data-time="12" aria-pressed="false">MVP Combat <span>0:12</span></button>
-              <button type="button" class="chapter" data-time="80" aria-pressed="false">Classes &amp; Looks <span>1:20</span></button>
+              <button type="button" class="chapter" data-time="3" aria-pressed="false">MVP Combat <span>0:03</span></button>
+              <button type="button" class="chapter" data-time="11.2" aria-pressed="false">Skills &amp; Magic <span>0:11</span></button>
             </div>
             <button type="button" class="cc-btn" aria-pressed="false" aria-label="Captions">CC</button>
           </div>
-          <!-- Captions (WebVTT). Inline so they also work when index.html is opened from disk.
-               Replace the cues below with the official subtitles. -->
+          <!-- Captions for the 30 s cut (WebVTT, inline so they also work from disk).
+               Lines in quotes are the trailer's own lines; the rest describes the scenes. -->
           <script type="text/vtt" id="captions-en" data-label="English" data-lang="en">
 WEBVTT
 
-00:00:00.000 --> 00:00:07.500
+00:00:00.000 --> 00:00:03.000
 [Music] A hot-air balloon drifts over the open world of Midgard.
 
-00:00:07.500 --> 00:00:12.000
-An adventurer leaps into a new vision of the world.
+00:00:03.000 --> 00:00:08.000
+[Battle music] MVP bosses appear: a horned beast charges the party.
 
-00:00:12.000 --> 00:00:24.000
-[Battle music] Giant MVP bosses appear across the open world.
+00:00:08.000 --> 00:00:11.200
+A magic circle and a crowned MVP unleash their skills.
 
-00:00:24.000 --> 00:00:40.000
-Adventurers explore grassy hills and forests together.
+00:00:11.200 --> 00:00:15.200
+[Explosions] Fire, lava and purple magic.
 
-00:00:40.000 --> 00:00:58.000
-[Combat] Skills, explosions and magic fill the screen.
+00:00:15.200 --> 00:00:16.800
+“Growing stronger isn't as difficult as you think!”
 
-00:00:58.000 --> 00:01:10.000
-Gathering and treasure chests in the open world.
+00:00:16.800 --> 00:00:17.700
+“Trying to steal money?”
 
-00:01:10.000 --> 00:01:20.000
-Players gather around a town quest board.
+00:00:17.700 --> 00:00:18.600
+“In your dreams!”
 
-00:01:20.000 --> 00:01:36.000
-Character customization: outfits, hairstyles and looks.
+00:00:18.600 --> 00:00:22.900
+A ground smash, then a golden aura skill.
 
-00:01:36.000 --> 00:01:56.000
-[Music swells] The hero sets off across Midgard.
+00:00:22.900 --> 00:00:27.400
+A giant boss strikes as the whole party charges.
+
+00:00:27.400 --> 00:00:30.000
+Across Time Into the New World. Play free on Steam, Windows PC.
           </script>
-          <p class="footage-note" id="footage-note">Official trailer from the game's Steam store page. No sound until you press play.</p>
+          <p class="footage-note" id="footage-note">30-second cut of the official Steam trailer. No sound until you press play. <a href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" target="_blank" rel="noopener" data-cta="trailer-note">Watch the full trailer on Steam</a>.</p>
         </div>
       </div>
     </section>
